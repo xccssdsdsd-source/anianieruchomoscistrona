@@ -1,0 +1,43 @@
+<%- include('partials/head', { title: 'Polityka prywatności', bodyClass: 'page-privacy' }) %>
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div class="wrap">
+    <p class="label label--index">Informacje</p>
+    <h1 class="h1">Polityka prywatności</h1>
+  </div>
+</section>
+
+<section class="section section--top0">
+  <div class="wrap prose prose--narrow">
+    <h2 class="h3">Administrator danych</h2>
+    <p>Administratorem danych osobowych przekazanych przez formularz kontaktowy lub telefonicznie jest <strong><%= settings.ownerFullName || settings.brandName %></strong><% if (settings.officeAddress) { %>, <%= settings.officeAddress.replace(/\n/g, ', ') %><% } %>.
+    Kontakt: <%= settings.phone %><% if (settings.email) { %>, <%= settings.email %><% } %>.</p>
+    <% if (!settings.officeAddress) { %>
+      <p class="tag--pending">pełne dane firmy (nazwa, adres, NIP) w przygotowaniu</p>
+    <% } %>
+
+    <h2 class="h3">Cel i podstawa przetwarzania</h2>
+    <p>Dane (imię, e-mail, telefon, treść wiadomości) przetwarzam wyłącznie w celu odpowiedzi na zapytanie i ewentualnego przygotowania oferty — na podstawie art. 6 ust. 1 lit. a i b RODO (zgoda oraz działania zmierzające do zawarcia umowy).</p>
+
+    <h2 class="h3">Okres przechowywania</h2>
+    <p>Wiadomości przechowuję do czasu zakończenia sprawy, nie dłużej niż 12 miesięcy od ostatniego kontaktu, chyba że dojdzie do zawarcia umowy pośrednictwa.</p>
+
+    <h2 class="h3">Asystent doboru nieruchomości</h2>
+    <p>Na stronie głównej działa asystent, któremu możesz opisać własnymi słowami, jakiej nieruchomości szukasz. Treść takiego opisu jest przetwarzana wyłącznie po to, aby dobrać pasujące oferty — nie proszę w nim o dane kontaktowe i nie zapisuję go razem z Twoimi danymi osobowymi.</p>
+    <p>Jeżeli asystent działa w trybie sztucznej inteligencji, treść opisu jest w tym celu przekazywana do Anthropic PBC (usługa Claude API) jako podmiotu przetwarzającego. Z tego powodu prosimy, aby nie wpisywać tam danych osobowych ani informacji poufnych. Gdy tryb AI jest wyłączony, dopasowanie odbywa się w całości na tym serwerze i żadne dane nie opuszczają strony.</p>
+
+    <h2 class="h3">Odbiorcy danych</h2>
+    <p>Danych nie sprzedaję ani nie udostępniam w celach marketingowych. Odbiorcami mogą być wyłącznie podmioty niezbędne do świadczenia usługi: dostawca hostingu oraz — w zakresie opisanym powyżej — dostawca usługi asystenta.</p>
+
+    <h2 class="h3">Twoje prawa</h2>
+    <p>Masz prawo dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania, przenoszenia oraz cofnięcia zgody w dowolnym momencie. Możesz też wnieść skargę do Prezesa Urzędu Ochrony Danych Osobowych.</p>
+
+    <h2 class="h3">Pliki cookies</h2>
+    <p>Strona nie używa cookies śledzących ani analitycznych. Jedyne ciasteczko techniczne służy do logowania do panelu administracyjnego i nie jest zapisywane odwiedzającym.</p>
+
+    <p class="tag--pending">tekst szablonowy — przed publikacją warto skonsultować go z prawnikiem</p>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

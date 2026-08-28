@@ -1,0 +1,18 @@
+<%- include('partials/head', { title: title || 'Nie znaleziono', bodyClass: 'page-404' }) %>
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="wrap">
+    <p class="label label--index">Błąd</p>
+    <p class="display" style="font-size:var(--fs-display);line-height:.94;letter-spacing:var(--tr-display);margin-block:16px 24px">404</p>
+    <hr class="rule">
+    <h1 class="h2" style="margin-top:32px"><%= typeof message !== 'undefined' && message ? 'Coś poszło nie tak.' : 'Tej strony nie ma.' %></h1>
+    <p class="lead" style="margin-top:16px"><%= typeof message !== 'undefined' && message ? message : 'Oferta mogła zostać sprzedana albo adres jest nieaktualny.' %></p>
+    <div style="margin-top:40px;display:flex;gap:24px;align-items:center;flex-wrap:wrap">
+      <a class="btn btn--primary" href="/nieruchomosci">Zobacz aktualne oferty</a>
+      <a class="link-arrow" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,90 @@
+<%
+/* Wiersz oferty — jeden komponent dla strony głównej i listy ofert.
+   Wymaga: p (oferta), idx (numer porządkowy od 0). */
+const _p = p;
+const _i = typeof idx === 'number' ? idx : 0;
+const _cover = _p.images && _p.images[0];
+const _price = h.formatPrice(_p.price);
+const _area = h.areaFor(_p);
+const _isRent = _p.transaction === 'wynajem';
+const _url = '/nieruchomosci/' + _p.slug;
+const _loc = h.cleanLocation(_p.location);
+const _locPending = h.isPlaceholderText(_p.location);
+
+/* Tabela faktów: powierzchnia + najciekawsze pozycje z „extras”.
+   To one zastępują cenę jako element nośny karty. */
+const _facts = [];
+if (_area) _facts.push({ label: 'Powierzchnia', value: _area });
+if (_p.rooms) _facts.push({ label: 'Pokoje', value: String(_p.rooms) });
+if (_p.plotArea) _facts.push({ label: 'Działka', value: h.formatLandArea(_p.plotArea) });
+(_p.extras || []).forEach((e) => {
+  if (e && e.label && e.value && !h.isPlaceholderText(e.value)) _facts.push(e);
+});
+const _shown = _facts.slice(0, 4);
+
+/* Dane dla filtrowania i sortowania po stronie przeglądarki. */
+const _haystack = [_p.title, _p.location, _p.address, _p.id, C[_p.category].label,
+  (_p.features || []).join(' ')].filter(Boolean).join(' ');
+%>
+<article class="offer-row"
+         data-offer
+         data-kategoria="<%= _p.category %>"
+         data-typ="<%= _p.transaction %>"
+         data-powierzchnia="<%= _p.area || 0 %>"
+         data-cena="<%= _p.price || 0 %>"
+         data-kolejnosc="<%= _i %>"
+         data-szukaj="<%= _haystack %>"
+         data-reveal>
+
+  <p class="offer-n" aria-hidden="true"><%= String(_i + 1).padStart(2, '0') %></p>
+
+  <div class="offer-body">
+    <p class="offer-kind">
+      <span class="label"><%= C[_p.category].label %></span>
+      <span class="label">·</span>
+      <span class="label"><%= T[_p.transaction].short %></span>
+    </p>
+
+    <h3 class="offer-title">
+      <a href="<%= _url %>"><span class="u-sweep"><%= _p.title %></span></a>
+    </h3>
+
+    <p class="offer-loc">
+      <% if (_loc) { %><span><%= _loc %></span><% } %>
+      <% if (_locPending) { %><span class="tag--pending">dokładna lokalizacja w przygotowaniu</span><% } %>
+    </p>
+
+    <% if (_shown.length) { %>
+      <dl class="offer-facts">
+        <% _shown.forEach((f) => { %>
+          <div class="offer-fact">
+            <dt><%= f.label %></dt>
+            <dd><%= f.value %></dd>
+          </div>
+        <% }) %>
+      </dl>
+    <% } %>
+
+    <div class="offer-foot">
+      <p class="offer-price">
+        <span class="label">Cena</span>
+        <% if (_price) { %>
+          <span class="offer-price-v"><%= _price %><% if (_isRent) { %><span class="offer-price-unit"> / mies.</span><% } %></span>
+        <% } else { %>
+          <span class="offer-price-v">na zapytanie</span>
+        <% } %>
+      </p>
+      <a class="link-arrow" href="<%= _url %>">Zobacz ofertę</a>
+    </div>
+  </div>
+
+  <a class="offer-media" href="<%= _url %>" tabindex="-1" aria-hidden="true">
+    <% if (_p.status !== 'aktywna') { %><span class="offer-status"><%= S[_p.status].label %></span><% } %>
+    <%- include('placeholder', { ph: {
+      src: _cover ? _cover.file : '',
+      alt: _cover ? _cover.alt : '',
+      label: 'Zdjęcie oferty',
+      ratio: '16/10'
+    } }) %>
+  </a>
+</article>

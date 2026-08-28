@@ -1,0 +1,68 @@
+<%
+/* Pasek wyszukiwania, filtrów i sortowania.
+   Z JS filtruje w miejscu; bez JS degraduje się do GET /nieruchomosci.
+   Wymaga: counts (licznik per kategoria), total. Opcjonalnie: filters. */
+const _f = typeof filters === 'object' && filters ? filters : { kategoria: '', typ: '' };
+const _counts = typeof counts === 'object' && counts ? counts : {};
+/* Sortowanie po cenie ma sens dopiero, gdy jakakolwiek oferta ma cenę. */
+const _anyPrice = typeof hasPrices !== 'undefined' ? hasPrices : false;
+%>
+<section class="searchbar" data-searchbar aria-label="Wyszukiwanie ofert">
+  <div class="wrap searchbar-inner">
+    <form action="/nieruchomosci" method="get" role="search">
+
+      <div class="search-field">
+        <svg viewBox="0 0 20 20" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="9" cy="9" r="6"/><path d="M13.5 13.5L18 18"/>
+        </svg>
+        <label class="sr-only" for="szukaj">Szukaj ofert</label>
+        <input type="search" id="szukaj" name="szukaj" data-search-input
+               placeholder="Szukaj: lokalizacja, typ, numer oferty…"
+               autocomplete="off">
+        <button type="button" class="search-clear" data-search-clear>Wyczyść</button>
+      </div>
+
+      <div class="filters-row">
+        <div class="filter-group" role="group" aria-label="Kategoria">
+          <a class="filter-link <%= !_f.kategoria ? 'is-on' : '' %>"
+             href="/nieruchomosci" data-filter="kategoria" data-value="">
+            Wszystkie <span class="filter-link-n"><%= total %></span>
+          </a>
+          <% Object.entries(C).forEach(([key, cat]) => {
+               const n = _counts[key] || 0; %>
+            <a class="filter-link <%= _f.kategoria === key ? 'is-on' : '' %> <%= n === 0 ? 'is-empty' : '' %>"
+               href="/nieruchomosci?kategoria=<%= key %>" data-filter="kategoria" data-value="<%= key %>">
+              <%= cat.plural %>
+              <span class="filter-link-n"><%= n === 0 ? 'wkrótce' : n %></span>
+            </a>
+          <% }) %>
+        </div>
+
+        <div class="filter-group" role="group" aria-label="Rodzaj transakcji">
+          <% Object.entries(T).forEach(([key, t]) => { %>
+            <a class="filter-link <%= _f.typ === key ? 'is-on' : '' %>"
+               href="/nieruchomosci?typ=<%= key %>" data-filter="typ" data-value="<%= key %>">
+              <%= t.short %>
+            </a>
+          <% }) %>
+        </div>
+
+        <div class="sort-group">
+          <label class="label" for="sortuj">Sortuj</label>
+          <select id="sortuj" name="sortuj" data-sort>
+            <option value="domyslnie">Najnowsze</option>
+            <option value="powierzchnia-malejaco">Powierzchnia ↓</option>
+            <option value="powierzchnia-rosnaco">Powierzchnia ↑</option>
+            <% if (_anyPrice) { %>
+              <option value="cena-rosnaco">Cena ↑</option>
+              <option value="cena-malejaco">Cena ↓</option>
+            <% } %>
+          </select>
+          <button type="submit" class="btn search-submit">Szukaj</button>
+        </div>
+      </div>
+
+      <p class="results-count" data-results-count aria-live="polite"><%= total %> <%= total === 1 ? 'oferta' : (total % 10 >= 2 && total % 10 <= 4 && (total % 100 < 12 || total % 100 > 14) ? 'oferty' : 'ofert') %></p>
+    </form>
+  </div>
+</section>

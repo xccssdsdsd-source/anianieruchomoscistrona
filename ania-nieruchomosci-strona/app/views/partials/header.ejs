@@ -1,0 +1,28 @@
+<header class="site-header" data-header>
+  <div class="wrap header-row">
+    <a class="wordmark" href="/" aria-label="<%= settings.brandName %> — strona główna">
+      <span class="wordmark-name"><%= settings.ownerName %></span>
+      <span class="wordmark-sub">Nieruchomości · Rzeszów</span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Główna nawigacja">
+      <a href="/nieruchomosci" class="<%= path.startsWith('/nieruchomosci') ? 'is-active' : '' %>">Oferty</a>
+      <a href="/o-mnie" class="<%= path === '/o-mnie' ? 'is-active' : '' %>">O mnie</a>
+      <a href="/kontakt" class="<%= path === '/kontakt' ? 'is-active' : '' %>">Kontakt</a>
+      <a href="<%= settings.instagram %>" target="_blank" rel="noopener" class="nav-ig">Instagram ↗</a>
+      <a href="<%= h.telHref(settings.phone) %>" class="nav-phone"><%= settings.phone %></a>
+    </nav>
+
+    <a class="header-phone" href="<%= h.telHref(settings.phone) %>">
+      <span class="header-phone-label">Zadzwoń</span>
+      <span class="header-phone-num"><%= settings.phone %></span>
+    </a>
+
+    <button class="burger" type="button" aria-expanded="false" aria-controls="nav" data-burger>
+      <i></i><i></i>
+      <span class="sr-only">Menu</span>
+    </button>
+  </div>
+  <span class="header-progress" data-progress aria-hidden="true"></span>
+</header>
+<main id="tresc">

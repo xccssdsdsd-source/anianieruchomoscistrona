@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title><%= title %> · Panel</title>
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/admin.css">
+</head>
+<body class="admin <%= typeof bare !== 'undefined' && bare ? 'admin--bare' : '' %>">
+<% if (!(typeof bare !== 'undefined' && bare)) { %>
+<aside class="a-side">
+  <a class="a-brand" href="/admin"><span><%= settings.brandName %></span><small>Panel administracyjny</small></a>
+  <nav class="a-nav">
+    <a href="/admin" class="<%= path === '/' ? 'is-on' : '' %>">Pulpit</a>
+    <a href="/admin/nieruchomosci" class="<%= path.startsWith('/nieruchomosci') ? 'is-on' : '' %>">Nieruchomości</a>
+    <a href="/admin/wiadomosci" class="<%= path.startsWith('/wiadomosci') ? 'is-on' : '' %>">Wiadomości <% if (unread) { %><b class="a-badge"><%= unread %></b><% } %></a>
+    <a href="/admin/ustawienia" class="<%= path.startsWith('/ustawienia') ? 'is-on' : '' %>">Ustawienia strony</a>
+    <a href="/admin/haslo" class="<%= path.startsWith('/haslo') ? 'is-on' : '' %>">Hasło</a>
+  </nav>
+  <div class="a-side-foot">
+    <a href="/" target="_blank" rel="noopener">Zobacz stronę ↗</a>
+    <a href="/admin/eksport">Pobierz kopię danych</a>
+    <form method="post" action="/admin/logout"><button type="submit" class="a-link">Wyloguj</button></form>
+  </div>
+</aside>
+<main class="a-main">
+  <% if (defaultPassword) { %>
+    <div class="a-alert a-alert--warn">Panel działa na domyślnym haśle. <a href="/admin/haslo">Ustaw własne hasło</a> zanim strona trafi do internetu.</div>
+  <% } %>
+<% } %>

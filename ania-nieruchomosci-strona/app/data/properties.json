@@ -1,0 +1,578 @@
+[
+  {
+    "id": "p11lokalrespan",
+    "slug": "lokal-handlowy-166-m2-respan-rzeszow",
+    "title": "Lokal handlowy 166 m² w centrum handlowym Respan",
+    "category": "komercja",
+    "transaction": "sprzedaz",
+    "status": "aktywna",
+    "featured": true,
+    "price": null,
+    "priceNote": "Cena oraz forma (sprzedaż / wynajem) — do potwierdzenia z właścicielem",
+    "location": "Rzeszów, ul. Podkarpacka 53A",
+    "address": "Centrum handlowe Respan",
+    "area": 166.1,
+    "rooms": null,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Układ",
+        "value": "3 połączone moduły: 74,0 + 46,6 + 45,5 m²"
+      },
+      {
+        "label": "Numery lokali",
+        "value": "128, 130/1, 130/2"
+      },
+      {
+        "label": "Stan",
+        "value": "wykończony, czynny salon odzieżowy"
+      },
+      {
+        "label": "Witryna",
+        "value": "przeszklona od strony pasażu, roleta antywłamaniowa"
+      },
+      {
+        "label": "Parking",
+        "value": "bezpłatny, przy budynku"
+      }
+    ],
+    "features": [
+      "166,1 m²",
+      "3 połączone moduły",
+      "gotowy do wejścia",
+      "witryna od pasażu",
+      "duży parking",
+      "sąsiedztwo E.Leclerc"
+    ],
+    "description": "Lokal użytkowy o łącznej powierzchni 166,1 m², złożony z trzech połączonych modułów: 74,0 m², 46,6 m² i 45,5 m². Na rzucie kondygnacji to lokale 128, 130/1 i 130/2 — dziś funkcjonują jako jedna, otwarta przestrzeń sprzedaży.\n\nWnętrze jest wykończone i gotowe do działania: sufit podwieszany z oświetleniem panelowym, gres na całej powierzchni, przymierzalnie w zabudowie z zasłonami, wydzielone zaplecze i dostęp do węzła sanitarnego. Witryna wychodzi na pasaż, na noc zasłaniana roletą antywłamaniową.\n\nRespan to jeden z najbardziej rozpoznawalnych obiektów handlowych w Rzeszowie — kilkadziesiąt firm pod jednym dachem, duży bezpłatny parking, przystanki autobusowe przy wejściu i sąsiedztwo E.Leclerc. Ruch generuje samo miejsce, nie trzeba budować go od zera.\n\nAktualnie w lokalu działa salon odzieżowy — meble i wyposażenie widoczne na zdjęciach należą do najemcy.",
+    "images": [
+      {
+        "file": "/uploads/of-lokal-01.webp",
+        "alt": "Sala sprzedaży lokalu w Respan — salon odzieżowy"
+      },
+      {
+        "file": "/uploads/of-lokal-02.webp",
+        "alt": "Druga część lokalu z wieszakami i regałami"
+      },
+      {
+        "file": "/uploads/of-lokal-03.webp",
+        "alt": "Witryna lokalu od strony pasażu handlowego"
+      },
+      {
+        "file": "/uploads/of-lokal-04.webp",
+        "alt": "Węzeł sanitarny przy lokalu"
+      },
+      {
+        "file": "/uploads/of-lokal-05.webp",
+        "alt": "Budynek centrum handlowego Respan od ul. Podkarpackiej"
+      },
+      {
+        "file": "/uploads/of-lokal-06.webp",
+        "alt": "Tablica informacyjna z rozmieszczeniem lokali"
+      },
+      {
+        "file": "/uploads/of-lokal-07.webp",
+        "alt": "Rzut kondygnacji z zaznaczonym lokalem"
+      }
+    ],
+    "createdAt": "2026-08-26T09:00:00.000Z",
+    "updatedAt": "2026-08-28T09:00:00.000Z"
+  },
+  {
+    "id": "p12dzialkabud",
+    "slug": "dzialka-budowlana-50-a-nowa-zabudowa",
+    "title": "Działka budowlana 50,66 a w otoczeniu nowych domów",
+    "category": "dzialka",
+    "transaction": "sprzedaz",
+    "status": "aktywna",
+    "featured": true,
+    "price": null,
+    "priceNote": "Cena — do potwierdzenia z właścicielem",
+    "location": "Podkarpacie — dokładna lokalizacja do uzupełnienia",
+    "address": "",
+    "area": 5066,
+    "rooms": null,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Wymiary",
+        "value": "72,92 × 76,24 × 71,90 × 64,74 m"
+      },
+      {
+        "label": "Kształt",
+        "value": "regularny, zbliżony do prostokąta"
+      },
+      {
+        "label": "Dojazd",
+        "value": "utwardzona droga wzdłuż granicy działki"
+      },
+      {
+        "label": "Sąsiedztwo",
+        "value": "nowa zabudowa jednorodzinna, las od wschodu"
+      }
+    ],
+    "features": [
+      "50,66 a",
+      "regularny kształt",
+      "utwardzony dojazd",
+      "nowa zabudowa w sąsiedztwie",
+      "granica z lasem",
+      "blisko miasta"
+    ],
+    "description": "Działka o powierzchni 50,66 a (ok. 5 066 m²) w spokojnej, rozwijającej się okolicy jednorodzinnej. Wymiary boków: 72,92 m, 76,24 m, 71,90 m i 64,74 m — kształt jest regularny, zbliżony do prostokąta, więc dom można ustawić praktycznie dowolnie.\n\nDojazd utwardzoną drogą prowadzącą wprost do granicy działki. Z jednej strony sąsiedztwo zadbanych posesji z nową zabudową i żywopłotem, od wschodu naturalna granica lasu. Teren płaski, wykoszony, bez zadrzewienia do usunięcia.\n\nZ działki widać zabudowę miasta na horyzoncie — dojazd do sklepów i szkoły zajmuje kilka minut, a przy samej działce nie ma ruchu tranzytowego.\n\nWymiary i powierzchnia pochodzą z pomiaru naniesionego na zdjęcie lotnicze — przed transakcją potwierdzamy je wypisem z rejestru gruntów.",
+    "images": [
+      {
+        "file": "/uploads/of-dzialka-01.webp",
+        "alt": "Działka budowlana z lotu ptaka — widok od strony drogi"
+      },
+      {
+        "file": "/uploads/of-dzialka-02.webp",
+        "alt": "Granice działki na tle sąsiedniej zabudowy"
+      },
+      {
+        "file": "/uploads/of-dzialka-03.webp",
+        "alt": "Widok na działkę z zabudową miasta w tle"
+      },
+      {
+        "file": "/uploads/of-dzialka-04.webp",
+        "alt": "Działka od strony lasu"
+      },
+      {
+        "file": "/uploads/of-dzialka-05.webp",
+        "alt": "Ujęcie z góry — cały obrys działki"
+      },
+      {
+        "file": "/uploads/of-dzialka-06.webp",
+        "alt": "Okolica działki — sąsiednie posesje"
+      },
+      {
+        "file": "/uploads/of-dzialka-07.webp",
+        "alt": "Droga dojazdowa do działki"
+      },
+      {
+        "file": "/uploads/of-dzialka-08.webp",
+        "alt": "Widok wzdłuż dłuższego boku działki"
+      },
+      {
+        "file": "/uploads/of-dzialka-09.webp",
+        "alt": "Działka i najbliższe sąsiedztwo"
+      },
+      {
+        "file": "/uploads/of-dzialka-10.webp",
+        "alt": "Panorama okolicy z działką na pierwszym planie"
+      }
+    ],
+    "createdAt": "2026-08-25T09:00:00.000Z",
+    "updatedAt": "2026-08-28T09:00:00.000Z"
+  },
+  {
+    "id": "p13siedlisko",
+    "slug": "dzialka-1-10-ha-z-domem-przy-drodze-asfaltowej",
+    "title": "Siedlisko 1,10 ha z domem, przy drodze asfaltowej",
+    "category": "dzialka",
+    "transaction": "sprzedaz",
+    "status": "aktywna",
+    "featured": true,
+    "price": null,
+    "priceNote": "Cena — do potwierdzenia z właścicielem",
+    "location": "Podkarpacie — dokładna lokalizacja do uzupełnienia",
+    "address": "",
+    "area": 11000,
+    "rooms": null,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Wymiary",
+        "value": "173 × 160 × 64 × 52 m"
+      },
+      {
+        "label": "Zabudowa",
+        "value": "dom murowany + budynek gospodarczy"
+      },
+      {
+        "label": "Dojazd",
+        "value": "bezpośrednio z drogi asfaltowej"
+      },
+      {
+        "label": "Ukształtowanie",
+        "value": "część otwarta uprawna, część zadrzewiona"
+      }
+    ],
+    "features": [
+      "1,10 ha",
+      "gotowe siedlisko",
+      "wjazd z drogi asfaltowej",
+      "istniejąca zabudowa",
+      "widok na dolinę",
+      "własny las"
+    ],
+    "description": "Działka o powierzchni 1,10 ha z bezpośrednim wjazdem z drogi asfaltowej. Wymiary boków: 173 m, 160 m, 64 m i 52 m.\n\nPrzy drodze stoi murowany dom, obok starszy budynek gospodarczy — do remontu, rozbiórki albo odbudowy pod nową funkcję. Środek działki to otwarty, uprawiany teren, a zachodnia część przechodzi w młody las brzozowy, który daje naturalną osłonę od sąsiadów.\n\nTo gotowe siedlisko: wjazd bez służebności, widok na dolinę i pasmo wzgórz, a w kilkanaście minut samochodem dojedziesz do miasta. Dobre miejsce zarówno na dom z prawdziwym ogrodem, jak i na agroturystykę.\n\nStan techniczny budynków, przeznaczenie w planie i dostępne media potwierdzamy dokumentami przed prezentacją.",
+    "images": [
+      {
+        "file": "/uploads/of-siedlisko-01.webp",
+        "alt": "Działka 1,10 ha z góry — obrys i wymiary"
+      },
+      {
+        "file": "/uploads/of-siedlisko-02.webp",
+        "alt": "Widok na siedlisko z zabudową przy drodze"
+      },
+      {
+        "file": "/uploads/of-siedlisko-03.webp",
+        "alt": "Działka na tle okolicznych wzgórz"
+      },
+      {
+        "file": "/uploads/of-siedlisko-04.webp",
+        "alt": "Dom i budynek gospodarczy na działce"
+      },
+      {
+        "file": "/uploads/of-siedlisko-05.webp",
+        "alt": "Panorama doliny z działką na pierwszym planie"
+      }
+    ],
+    "createdAt": "2026-08-24T09:00:00.000Z",
+    "updatedAt": "2026-08-28T09:00:00.000Z"
+  },
+  {
+    "id": "p01biala",
+    "slug": "mieszkanie-3-pokojowe-os-biala-wojtyly",
+    "title": "Nowoczesne mieszkanie 3-pokojowe z dwoma tarasami",
+    "category": "mieszkanie",
+    "transaction": "wynajem",
+    "status": "ukryta",
+    "featured": false,
+    "price": 2900,
+    "priceNote": "+ 500 zł opłaty + media · kaucja 3 400 zł",
+    "location": "os. Biała, Rzeszów",
+    "address": "ul. Wojtyły",
+    "area": 89,
+    "rooms": 3,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Tarasy",
+        "value": "2 tarasy + balkon, ok. 60 m²"
+      },
+      {
+        "label": "Parking",
+        "value": "2 miejsca postojowe"
+      },
+      {
+        "label": "Osiedle",
+        "value": "zamknięte, monitorowane"
+      }
+    ],
+    "features": [
+      "klimatyzacja",
+      "fotowoltaika",
+      "pełne AGD",
+      "osiedle zamknięte",
+      "2 miejsca parkingowe"
+    ],
+    "description": "Salon z kuchnią i jadalnią 24 m², dwie sypialnie (20 i 24 m²), łazienka i osobna toaleta.\n\nDo mieszkania przynależą dwa tarasy i balkon o łącznej powierzchni ok. 60 m² — rzadkość w tej okolicy. Klimatyzacja i fotowoltaika obniżają realne koszty utrzymania.\n\nOsiedle zamknięte, dwa miejsca parkingowe, pełne wyposażenie AGD. Mieszkanie dostępne od zaraz.",
+    "images": [],
+    "createdAt": "2026-08-01T10:00:00.000Z",
+    "updatedAt": "2026-08-01T10:00:00.000Z"
+  },
+  {
+    "id": "p02debicka",
+    "slug": "dom-ul-debicka-rzeszow",
+    "title": "Nowoczesny dom z 5 sypialniami, stan surowy zamknięty",
+    "category": "dom",
+    "transaction": "sprzedaz",
+    "status": "ukryta",
+    "featured": false,
+    "price": 850000,
+    "priceNote": "stan surowy zamknięty",
+    "location": "Rzeszów, ul. Dębicka",
+    "address": "ul. Dębicka",
+    "area": 180,
+    "rooms": 6,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Sypialnie",
+        "value": "5"
+      },
+      {
+        "label": "Taras",
+        "value": "28 m²"
+      },
+      {
+        "label": "Stan",
+        "value": "surowy zamknięty"
+      }
+    ],
+    "features": [
+      "5 sypialni",
+      "taras 28 m²",
+      "spokojna okolica"
+    ],
+    "description": "Dom o powierzchni 180 m² z pięcioma sypialniami i tarasem 28 m². Spokojna okolica, dobry dojazd do centrum Rzeszowa.\n\nStan surowy zamknięty — możliwość wykończenia pod własny gust.",
+    "images": [],
+    "createdAt": "2026-07-20T10:00:00.000Z",
+    "updatedAt": "2026-07-20T10:00:00.000Z"
+  },
+  {
+    "id": "p03czudec",
+    "slug": "obiekt-przemyslowy-czudec-6-ha",
+    "title": "Obiekt na 6-hektarowej działce: 10 000 m² hal i 5 000 m² biur",
+    "category": "komercja",
+    "transaction": "sprzedaz",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "Sprzedaż lub wynajem — cena do uzgodnienia",
+    "location": "Czudec, powiat strzyżowski",
+    "address": "",
+    "area": 15000,
+    "rooms": null,
+    "floor": "",
+    "year": "",
+    "plotArea": 60000,
+    "extras": [
+      {
+        "label": "Hale",
+        "value": "10 000 m²"
+      },
+      {
+        "label": "Biura",
+        "value": "5 000 m²"
+      },
+      {
+        "label": "Działka",
+        "value": "6 ha"
+      }
+    ],
+    "features": [
+      "sprzedaż lub wynajem",
+      "hale produkcyjno-magazynowe",
+      "część biurowa",
+      "duży plac manewrowy"
+    ],
+    "description": "Kompleks przemysłowy na działce o powierzchni 6 ha w Czudcu, ok. 20 km od Rzeszowa. Hale o łącznej powierzchni 10 000 m² oraz 5 000 m² powierzchni biurowej.\n\nMożliwa sprzedaż całości lub wynajem. Szczegółowa dokumentacja i rzuty dostępne po kontakcie.",
+    "images": [],
+    "createdAt": "2026-08-10T10:00:00.000Z",
+    "updatedAt": "2026-08-10T10:00:00.000Z"
+  },
+  {
+    "id": "p04stany",
+    "slug": "dom-stany-gmina-bojanow",
+    "title": "Dom 160 m² z 2016 r., 15 minut od strefy ekonomicznej Stalowa Wola",
+    "category": "dom",
+    "transaction": "sprzedaz",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Stany, gmina Bojanów",
+    "address": "ul. Łęgowa 21",
+    "area": 160,
+    "rooms": null,
+    "floor": "",
+    "year": "2016",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Umeblowanie",
+        "value": "częściowe"
+      },
+      {
+        "label": "Dojazd",
+        "value": "15 min do strefy ekonomicznej Stalowa Wola"
+      }
+    ],
+    "features": [
+      "rok budowy 2016",
+      "częściowo umeblowany"
+    ],
+    "description": "Dom o powierzchni 160 m², wybudowany w 2016 roku, częściowo umeblowany. Spokojna miejscowość, 15 minut samochodem do strefy ekonomicznej w Stalowej Woli.",
+    "images": [],
+    "createdAt": "2026-07-05T10:00:00.000Z",
+    "updatedAt": "2026-07-05T10:00:00.000Z"
+  },
+  {
+    "id": "p05zygmunt",
+    "slug": "biuro-ul-zygmuntowska-centrum-rzeszow",
+    "title": "Przestronne biuro w centrum, dwa oddzielne pomieszczenia",
+    "category": "komercja",
+    "transaction": "wynajem",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Rzeszów, centrum",
+    "address": "ul. Zygmuntowska 9a",
+    "area": null,
+    "rooms": 2,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [],
+    "features": [
+      "ścisłe centrum",
+      "dwa pomieszczenia"
+    ],
+    "description": "Przestronne biuro przy ul. Zygmuntowskiej — dwa oddzielne pomieszczenia, świetna lokalizacja w ścisłym centrum Rzeszowa.",
+    "images": [],
+    "createdAt": "2026-06-15T10:00:00.000Z",
+    "updatedAt": "2026-06-15T10:00:00.000Z"
+  },
+  {
+    "id": "p06kawalerka",
+    "slug": "kawalerka-36-m2-rzeszow",
+    "title": "Kawalerka gotowa do zamieszkania, 36,9 m²",
+    "category": "mieszkanie",
+    "transaction": "sprzedaz",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Rzeszów",
+    "address": "",
+    "area": 36.9,
+    "rooms": 1,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [],
+    "features": [
+      "gotowa do zamieszkania"
+    ],
+    "description": "Kawalerka o powierzchni 36,9 m², gotowa do zamieszkania — bez remontu, bez dodatkowych nakładów.",
+    "images": [],
+    "createdAt": "2026-06-01T10:00:00.000Z",
+    "updatedAt": "2026-06-01T10:00:00.000Z"
+  },
+  {
+    "id": "p07penthouse",
+    "slug": "penthouse-nad-wislokiem-wynajem",
+    "title": "Panoramiczny penthouse nad Wisłokiem",
+    "category": "mieszkanie",
+    "transaction": "wynajem",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Rzeszów, nad Wisłokiem",
+    "address": "",
+    "area": null,
+    "rooms": null,
+    "floor": "ostatnie",
+    "year": "",
+    "plotArea": null,
+    "extras": [],
+    "features": [
+      "panoramiczny widok",
+      "penthouse"
+    ],
+    "description": "Apartament typu penthouse z panoramicznym widokiem na Wisłok. Szczegóły i termin prezentacji po kontakcie telefonicznym.",
+    "images": [],
+    "createdAt": "2026-05-20T10:00:00.000Z",
+    "updatedAt": "2026-05-20T10:00:00.000Z"
+  },
+  {
+    "id": "p08olszynki",
+    "slug": "apartament-olszynki-park-17-pietro",
+    "title": "Apartament na 17. piętrze, Olszynki Park",
+    "category": "mieszkanie",
+    "transaction": "sprzedaz",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Rzeszów, Olszynki Park",
+    "address": "",
+    "area": null,
+    "rooms": null,
+    "floor": "17",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Inwestycja",
+        "value": "Olszynki Park"
+      }
+    ],
+    "features": [
+      "17. piętro",
+      "nowoczesna inwestycja"
+    ],
+    "description": "Nowoczesny apartament na 17. piętrze w inwestycji Olszynki Park w Rzeszowie.",
+    "images": [],
+    "createdAt": "2026-05-10T10:00:00.000Z",
+    "updatedAt": "2026-05-10T10:00:00.000Z"
+  },
+  {
+    "id": "p09piastow",
+    "slug": "kawalerka-os-piastow-wynajem",
+    "title": "Kawalerka 5 minut od Politechniki Rzeszowskiej",
+    "category": "mieszkanie",
+    "transaction": "wynajem",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "",
+    "location": "Rzeszów, os. Piastów",
+    "address": "",
+    "area": null,
+    "rooms": 1,
+    "floor": "",
+    "year": "",
+    "plotArea": null,
+    "extras": [],
+    "features": [
+      "blisko Politechniki"
+    ],
+    "description": "Kawalerka na os. Piastów, 5 minut pieszo do Politechniki Rzeszowskiej.",
+    "images": [],
+    "createdAt": "2026-04-15T10:00:00.000Z",
+    "updatedAt": "2026-04-15T10:00:00.000Z"
+  },
+  {
+    "id": "p10rejtana",
+    "slug": "lokal-50-m2-al-rejtana-rzeszow",
+    "title": "Lokal 50 m² na parterze z dużą witryną",
+    "category": "komercja",
+    "transaction": "wynajem",
+    "status": "ukryta",
+    "featured": false,
+    "price": null,
+    "priceNote": "Czynsz do uzgodnienia",
+    "location": "Rzeszów, al. Rejtana",
+    "address": "al. Rejtana",
+    "area": 50,
+    "rooms": null,
+    "floor": "parter",
+    "year": "",
+    "plotArea": null,
+    "extras": [
+      {
+        "label": "Witryna",
+        "value": "duża, od strony ulicy"
+      },
+      {
+        "label": "Kondygnacja",
+        "value": "parter"
+      }
+    ],
+    "features": [
+      "parter",
+      "duża witryna",
+      "świetna lokalizacja"
+    ],
+    "description": "Lokal 50 m² na parterze, z dużą witryną od strony ulicy. Świetna lokalizacja przy al. Rejtana.",
+    "images": [],
+    "createdAt": "2026-06-10T10:00:00.000Z",
+    "updatedAt": "2026-06-10T10:00:00.000Z"
+  }
+]

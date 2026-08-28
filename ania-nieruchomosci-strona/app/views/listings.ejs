@@ -1,0 +1,57 @@
+<%
+const kat = filters.kategoria ? C[filters.kategoria] : null;
+const n = properties.length;
+const slowoOferty = n === 1 ? 'oferta' : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 'oferty' : 'ofert');
+%>
+<%- include('partials/head', {
+      title: kat ? kat.plural : 'Wszystkie nieruchomości',
+      bodyClass: 'page-listings'
+    }) %>
+<%- include('partials/header') %>
+
+<section class="page-head">
+  <div class="wrap">
+    <p class="label label--index">Oferty</p>
+    <h1 class="h1"><%= kat ? kat.plural : 'Wszystkie nieruchomości' %><% if (filters.typ) { %> <span class="h1-sub"><%= T[filters.typ].short.toLowerCase() %></span><% } %></h1>
+    <p class="page-count"><%= n %> <%= slowoOferty %><% if (n !== allCount) { %> z <%= allCount %><% } %></p>
+  </div>
+</section>
+
+<%- include('partials/search', {
+      counts: counts,
+      total: n,
+      filters: filters,
+      hasPrices: hasPrices
+    }) %>
+
+<section class="section">
+  <div class="wrap">
+    <% if (n) { %>
+      <div class="offers-index" data-offers>
+        <% properties.forEach((p, i) => { %>
+          <%- include('partials/card', { p: p, idx: i }) %>
+        <% }) %>
+      </div>
+    <% } %>
+
+    <div class="empty-state" data-empty-state <%= n ? 'hidden' : '' %>>
+      <h2 class="h2">Brak ofert w tej kategorii.</h2>
+      <p>Mam też nieruchomości, które nie trafiają na portale — zwłaszcza działki i lokale komercyjne. Powiedz mi, czego szukasz.</p>
+      <a class="empty-phone" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+    </div>
+  </div>
+</section>
+
+<section class="band band--accent section--sm">
+  <div class="wrap cta-grid">
+    <div>
+      <h2 class="cta-title">Nie ma tu tego, czego szukasz?</h2>
+      <p class="cta-text">Zadzwoń — wiem o ofertach, które jeszcze nie są publiczne.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="cta-phone" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

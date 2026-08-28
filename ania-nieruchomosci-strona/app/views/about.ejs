@@ -1,0 +1,116 @@
+<%- include('partials/head', { title: 'O mnie', bodyClass: 'page-about' }) %>
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="wrap">
+    <div class="about-split">
+      <div class="about-media" data-reveal="mask">
+        <%- include('partials/placeholder', { ph: {
+              src: settings.aboutImage || settings.heroImage,
+              alt: settings.ownerFullName || settings.ownerName,
+              label: 'Portret: Ania',
+              ratio: '4/5',
+              pos: 'center 20%',
+              lazy: false
+            } }) %>
+      </div>
+
+      <div>
+        <p class="label label--index">01 / O mnie</p>
+        <h1 class="h1" style="margin-top:16px"><%= settings.aboutIntro %></h1>
+
+        <div style="margin-top:28px">
+          <% const paras = h.paragraphs(settings.aboutBody); %>
+          <% if (paras.length) { %>
+            <div class="prose prose--lead">
+              <% paras.forEach((para) => { %><p><%= para %></p><% }) %>
+            </div>
+          <% } else { %>
+            <%- include('partials/skeleton', { sk: { lines: [100, 96, 88, 52], variant: 'lead' } }) %>
+            <div style="margin-top:32px">
+              <%- include('partials/skeleton', { sk: { lines: [100, 92, 97, 84, 41] } }) %>
+            </div>
+            <div style="margin-top:32px">
+              <%- include('partials/skeleton', { sk: { lines: [98, 100, 86, 47], note: 'Treść w przygotowaniu' } }) %>
+            </div>
+          <% } %>
+        </div>
+
+        <dl class="facts">
+          <% settings.aboutFacts.forEach((f) => { %>
+            <div>
+              <dt><%= f.label %></dt>
+              <dd>
+                <% if (f.value) { %><%= f.value %><% } else { %>
+                  <span class="sk"><span class="sk-line sk-inline" style="--sk-i:0"></span></span>
+                <% } %>
+              </dd>
+            </div>
+          <% }) %>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ W CZYM POMAGAM ═══════════════ -->
+<section class="band band--paper2">
+  <div class="wrap">
+    <div class="split-2">
+      <div class="split-intro">
+        <p class="label label--index">02 / W czym pomagam</p>
+        <h2 class="h2" style="margin-top:16px">Cztery rzeczy, które robię <em>dobrze</em>.</h2>
+      </div>
+
+      <ol class="services">
+        <% settings.services.forEach((s, i) => { %>
+          <li data-reveal>
+            <span class="services-n"><%= String(i + 1).padStart(2, '0') %></span>
+            <h3 class="h3"><%= s.title %></h3>
+            <p><%= s.text %></p>
+          </li>
+        <% }) %>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ Z ŻYCIA ZAWODOWEGO ═══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">03 / Z życia zawodowego</p>
+        <h2 class="h2">Szkolenia i spotkania branżowe.</h2>
+      </div>
+      <p class="note--pending" style="margin:0;border:0;padding:0">Zdjęcia w przygotowaniu</p>
+    </div>
+
+    <div class="moments-grid">
+      <% ['Szkolenie branżowe', 'Spotkanie networkingowe', 'Prezentacja nieruchomości'].forEach((label, i) => { %>
+        <figure style="margin:0" data-reveal>
+          <%- include('partials/placeholder', { ph: { label: 'Zdjęcie: ' + label, ratio: '4/3' } }) %>
+          <figcaption style="margin-top:14px">
+            <%- include('partials/skeleton', { sk: { lines: [70, 40] } }) %>
+          </figcaption>
+        </figure>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="band band--accent section--sm">
+  <div class="wrap cta-grid">
+    <div>
+      <h2 class="cta-title">Porozmawiajmy o Twojej nieruchomości.</h2>
+      <p class="cta-text">Bez zobowiązań — pierwsza rozmowa i wycena są bezpłatne.</p>
+    </div>
+    <div class="cta-actions">
+      <a class="cta-phone" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+      <a class="btn btn--light" href="/kontakt">Napisz wiadomość</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

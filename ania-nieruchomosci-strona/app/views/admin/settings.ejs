@@ -1,0 +1,144 @@
+<% const s = settings; %>
+<%- include('_head', { title: 'Ustawienia strony' }) %>
+<form method="post" action="/admin/ustawienia" enctype="multipart/form-data" class="a-form" data-dirty>
+<header class="a-head a-head--sticky">
+  <div><p class="a-eyebrow">Ustawienia</p><h1>Treści i zdjęcia strony</h1></div>
+  <div class="a-head-actions">
+    <% if (saved) { %><span class="a-saved">Zapisano ✓</span><% } %>
+    <button class="a-btn a-btn--primary" type="submit">Zapisz</button>
+  </div>
+</header>
+
+<nav class="a-tabs">
+  <a href="#marka">Marka</a><a href="#kontakt">Kontakt</a><a href="#start">Strona główna</a><a href="#omnie">O mnie</a><a href="#zdjecia">Zdjęcia</a><a href="#seo">SEO</a>
+</nav>
+
+<section class="a-card" id="marka">
+  <h2>Marka</h2>
+  <div class="a-row">
+    <label class="a-field"><span>Nazwa strony</span><input type="text" name="brandName" value="<%= s.brandName %>"></label>
+    <label class="a-field"><span>Imię (używane w tekstach)</span><input type="text" name="ownerName" value="<%= s.ownerName %>"></label>
+  </div>
+  <div class="a-row">
+    <label class="a-field"><span>Imię i nazwisko (stopka, RODO)</span><input type="text" name="ownerFullName" value="<%= s.ownerFullName %>" placeholder="do uzupełnienia"></label>
+    <label class="a-field"><span>Tagline (stopka)</span><input type="text" name="tagline" value="<%= s.tagline %>"></label>
+  </div>
+</section>
+
+<section class="a-card" id="kontakt">
+  <h2>Kontakt</h2>
+  <div class="a-row">
+    <label class="a-field"><span>Telefon główny</span><input type="text" name="phone" value="<%= s.phone %>"></label>
+    <label class="a-field"><span>Telefon dodatkowy</span><input type="text" name="phoneSecondary" value="<%= s.phoneSecondary %>"></label>
+    <label class="a-field"><span>E-mail</span><input type="email" name="email" value="<%= s.email %>" placeholder="do uzupełnienia"></label>
+  </div>
+  <div class="a-row">
+    <label class="a-field"><span>Adres biura (każda linia osobno)</span><textarea name="officeAddress" rows="3" placeholder="do uzupełnienia"><%= s.officeAddress %></textarea></label>
+    <label class="a-field"><span>Godziny</span><input type="text" name="officeHours" value="<%= s.officeHours %>"></label>
+  </div>
+  <div class="a-row">
+    <label class="a-field"><span>Instagram (URL)</span><input type="url" name="instagram" value="<%= s.instagram %>"></label>
+    <label class="a-field"><span>Facebook (URL)</span><input type="url" name="facebook" value="<%= s.facebook %>"></label>
+    <label class="a-field"><span>LinkedIn (URL)</span><input type="url" name="linkedin" value="<%= s.linkedin %>"></label>
+  </div>
+</section>
+
+<section class="a-card" id="start">
+  <h2>Strona główna</h2>
+  <label class="a-field"><span>Nagłówek</span><input type="text" name="heroTitle" value="<%= s.heroTitle %>"></label>
+  <label class="a-field"><span>Tekst pod nagłówkiem</span><textarea name="heroLead" rows="3"><%= s.heroLead %></textarea></label>
+
+  <div class="a-sub">
+    <div class="a-sub-head"><span>Usługi (sekcja „Czym się zajmuję”)</span><button type="button" class="a-btn a-btn--small" data-add-row="services">+ dodaj</button></div>
+    <div class="a-rows" data-rows="services">
+      <% s.services.forEach((x) => { %>
+        <div class="a-row a-row--pair" data-row>
+          <input type="text" name="serviceTitle" value="<%= x.title %>" placeholder="Tytuł">
+          <input type="text" name="serviceText" value="<%= x.text %>" placeholder="Opis">
+          <button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button>
+        </div>
+      <% }) %>
+    </div>
+    <template data-row-template="services"><div class="a-row a-row--pair" data-row><input type="text" name="serviceTitle" placeholder="Tytuł"><input type="text" name="serviceText" placeholder="Opis"><button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button></div></template>
+  </div>
+
+  <div class="a-sub">
+    <div class="a-sub-head"><span>Kroki współpracy (sekcja „Jak to wygląda”)</span><button type="button" class="a-btn a-btn--small" data-add-row="steps">+ dodaj</button></div>
+    <div class="a-rows" data-rows="steps">
+      <% s.processSteps.forEach((x) => { %>
+        <div class="a-row a-row--pair" data-row>
+          <input type="text" name="stepTitle" value="<%= x.title %>" placeholder="Tytuł kroku">
+          <input type="text" name="stepText" value="<%= x.text %>" placeholder="Opis">
+          <button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button>
+        </div>
+      <% }) %>
+    </div>
+    <template data-row-template="steps"><div class="a-row a-row--pair" data-row><input type="text" name="stepTitle" placeholder="Tytuł kroku"><input type="text" name="stepText" placeholder="Opis"><button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button></div></template>
+  </div>
+
+  <div class="a-row">
+    <label class="a-field"><span>Pasek CTA — nagłówek</span><input type="text" name="ctaTitle" value="<%= s.ctaTitle %>"></label>
+    <label class="a-field"><span>Pasek CTA — tekst</span><input type="text" name="ctaText" value="<%= s.ctaText %>"></label>
+  </div>
+</section>
+
+<section class="a-card" id="omnie">
+  <h2>O mnie</h2>
+  <label class="a-field"><span>Nagłówek</span><input type="text" name="aboutIntro" value="<%= s.aboutIntro %>"></label>
+  <label class="a-field"><span>Tekst (pusta linia = nowy akapit; pierwszy akapit trafia też na stronę główną)</span><textarea name="aboutBody" rows="10" placeholder="Od kiedy w nieruchomościach, dlaczego, jak pracujesz…"><%= s.aboutBody %></textarea></label>
+  <div class="a-sub">
+    <div class="a-sub-head"><span>Fakty (lista pod tekstem)</span><button type="button" class="a-btn a-btn--small" data-add-row="facts">+ dodaj</button></div>
+    <div class="a-rows" data-rows="facts">
+      <% s.aboutFacts.forEach((x) => { %>
+        <div class="a-row a-row--pair" data-row>
+          <input type="text" name="factLabel" value="<%= x.label %>" placeholder="np. W branży od">
+          <input type="text" name="factValue" value="<%= x.value %>" placeholder="np. 2019">
+          <button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button>
+        </div>
+      <% }) %>
+    </div>
+    <template data-row-template="facts"><div class="a-row a-row--pair" data-row><input type="text" name="factLabel" placeholder="Etykieta"><input type="text" name="factValue" placeholder="Wartość"><button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button></div></template>
+  </div>
+</section>
+
+<section class="a-card" id="zdjecia">
+  <h2>Zdjęcia</h2>
+  <div class="a-imgs">
+    <% [['heroImage', 'Zdjęcie główne (strona startowa)', 'pion 3:4, ok. 1200 × 1600 px'], ['portraitImage', 'Portret (sekcja O mnie na starcie, karta przy ofercie)', 'kwadrat, ok. 1200 × 1200 px'], ['aboutImage', 'Portret na stronie „O mnie”', 'pion 4:5, ok. 1200 × 1500 px']].forEach(([key, label, hint]) => { %>
+      <div class="a-img">
+        <div class="a-img-prev"><% if (s[key]) { %><img src="<%= s[key] %>" alt=""><% } else { %><span>brak</span><% } %></div>
+        <div>
+          <b><%= label %></b><small><%= hint %></small>
+          <input type="file" name="<%= key %>" accept="image/jpeg,image/png,image/webp,image/avif">
+          <% if (s[key]) { %><label class="a-check"><input type="checkbox" name="remove_<%= key %>"> <span>usuń obecne</span></label><% } %>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+
+  <div class="a-sub">
+    <div class="a-sub-head"><span>Instagram — 6 kafelków na stronie głównej</span></div>
+    <div class="a-photos a-photos--static">
+      <% (s.instagramImages || []).forEach((f) => { %>
+        <div class="a-photo" data-photo>
+          <img src="<%= f %>" alt="">
+          <input type="hidden" name="instagramKeep" value="<%= f %>">
+          <button type="button" class="a-photo-x" data-remove-photo aria-label="Usuń">✕</button>
+        </div>
+      <% }) %>
+    </div>
+    <label class="a-drop" data-drop>
+      <input type="file" name="instagramImages" accept="image/jpeg,image/png,image/webp,image/avif" multiple data-file-input>
+      <span>Dodaj zrzuty postów (kwadrat) — maks. 6 łącznie</span>
+      <small data-file-count></small>
+    </label>
+  </div>
+</section>
+
+<section class="a-card" id="seo">
+  <h2>SEO</h2>
+  <label class="a-field"><span>Opis strony (meta description, do 160 znaków)</span><textarea name="metaDescription" rows="2" maxlength="200"><%= s.metaDescription %></textarea></label>
+  <label class="a-field"><span>Adres strony po publikacji (np. https://ania-nieruchomosci.pl) — do sitemap i linków kanonicznych</span><input type="url" name="siteUrl" value="<%= s.siteUrl %>"></label>
+</section>
+</form>
+<%- include('_foot') %>

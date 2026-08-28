@@ -1,0 +1,26 @@
+<%- include('_head', { title: 'Wiadomości' }) %>
+<header class="a-head"><div><p class="a-eyebrow">Formularz kontaktowy</p><h1>Wiadomości</h1></div></header>
+<% if (!messages.length) { %><p class="a-muted">Brak wiadomości. Formularz na stronie zapisuje je tutaj.</p><% } %>
+<div class="a-msgs">
+<% messages.forEach((m) => { %>
+  <article class="a-msg <%= m.read ? '' : 'is-unread' %>" id="m-<%= m.id %>">
+    <header>
+      <div>
+        <b><%= m.imie %></b>
+        <span class="a-muted"><%= h.formatDate(m.createdAt) %></span>
+      </div>
+      <div class="a-msg-actions">
+        <form method="post" action="/admin/wiadomosci/<%= m.id %>/przeczytana"><button class="a-link" type="submit"><%= m.read ? 'Oznacz jako nieprzeczytaną' : 'Oznacz jako przeczytaną' %></button></form>
+        <form method="post" action="/admin/wiadomosci/<%= m.id %>/usun" data-confirm="Usunąć wiadomość?"><button class="a-link a-danger" type="submit">Usuń</button></form>
+      </div>
+    </header>
+    <% if (m.temat) { %><p class="a-msg-subject"><%= m.temat %></p><% } %>
+    <p class="a-msg-body"><%- h.escapeHtml(m.wiadomosc).replace(/\n/g, '<br>') %></p>
+    <footer>
+      <% if (m.email) { %><a href="mailto:<%= m.email %>"><%= m.email %></a><% } %>
+      <% if (m.telefon) { %><a href="<%= h.telHref(m.telefon) %>"><%= m.telefon %></a><% } %>
+    </footer>
+  </article>
+<% }) %>
+</div>
+<%- include('_foot') %>

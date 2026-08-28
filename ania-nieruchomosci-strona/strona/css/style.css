@@ -1,0 +1,217 @@
+/* ania.nieruchomosci — paleta inspirowana marką biura (grafit + złoto), do zmiany wg uznania klientki */
+:root {
+  --tlo: #1c1c1c;
+  --tlo-jasne: #262626;
+  --zloto: #c9a24b;
+  --tekst: #f2f0ec;
+  --tekst-przygaszony: #b8b4ab;
+  --max-w: 1140px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--tlo);
+  color: var(--tekst);
+  font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+a { color: inherit; text-decoration: none; }
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 5%;
+  border-bottom: 1px solid #333;
+}
+
+.logo {
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--zloto);
+}
+
+nav ul {
+  display: flex;
+  gap: 28px;
+  list-style: none;
+}
+
+nav a { font-size: 0.95rem; letter-spacing: 0.5px; }
+nav a:hover { color: var(--zloto); }
+
+.hero {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 80px 5% 60px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  margin-bottom: 16px;
+}
+
+.hero p {
+  color: var(--tekst-przygaszony);
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0 auto 32px;
+}
+
+.btn {
+  display: inline-block;
+  background: var(--zloto);
+  color: #1c1c1c;
+  padding: 14px 32px;
+  border-radius: 4px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.btn:hover { opacity: 0.9; }
+
+.sekcja {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 60px 5%;
+}
+
+.sekcja h2 {
+  font-size: 1.8rem;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.kategorie {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.kategoria {
+  background: var(--tlo-jasne);
+  border: 1px solid #333;
+  border-radius: 6px;
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.kategoria .ikona { font-size: 2rem; margin-bottom: 8px; }
+
+.oferty-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.karta-oferty {
+  background: var(--tlo-jasne);
+  border: 1px solid #333;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.karta-oferty .zdjecie {
+  aspect-ratio: 4/3;
+  background: #333 url('data:image/svg+xml;utf8,') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tekst-przygaszony);
+  font-size: 0.85rem;
+}
+
+.karta-oferty .tresc { padding: 18px; }
+.karta-oferty h3 { font-size: 1.1rem; margin-bottom: 6px; }
+.karta-oferty .cena { color: var(--zloto); font-weight: 600; margin: 8px 0; }
+.karta-oferty .parametry { color: var(--tekst-przygaszony); font-size: 0.9rem; }
+
+.tag {
+  display: inline-block;
+  background: #333;
+  color: var(--tekst-przygaszony);
+  font-size: 0.75rem;
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.o-mnie-flex {
+  display: flex;
+  gap: 48px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.o-mnie-zdjecie {
+  flex: 1 1 280px;
+  aspect-ratio: 1;
+  border-radius: 8px;
+  background: var(--tlo-jasne);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tekst-przygaszony);
+  min-width: 240px;
+}
+
+.o-mnie-tekst { flex: 1 1 400px; }
+
+.kontakt-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.kontakt-info p { margin-bottom: 12px; }
+.kontakt-info strong { color: var(--zloto); }
+
+form input, form textarea {
+  width: 100%;
+  background: var(--tlo-jasne);
+  border: 1px solid #444;
+  color: var(--tekst);
+  padding: 12px;
+  border-radius: 4px;
+  margin-bottom: 14px;
+  font-family: inherit;
+}
+
+footer {
+  border-top: 1px solid #333;
+  padding: 32px 5%;
+  text-align: center;
+  color: var(--tekst-przygaszony);
+  font-size: 0.9rem;
+}
+
+.szczegoly-oferty {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 40px;
+}
+
+.lista-cech {
+  list-style: none;
+  margin: 20px 0;
+}
+
+.lista-cech li {
+  padding: 8px 0;
+  border-bottom: 1px solid #333;
+  display: flex;
+  justify-content: space-between;
+  color: var(--tekst-przygaszony);
+}
+
+.lista-cech li span:last-child { color: var(--tekst); }
+
+@media (max-width: 800px) {
+  .kategorie, .oferty-grid { grid-template-columns: 1fr 1fr; }
+  .kontakt-grid, .szczegoly-oferty { grid-template-columns: 1fr; }
+  nav ul { gap: 14px; flex-wrap: wrap; }
+}

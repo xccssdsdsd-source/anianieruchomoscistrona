@@ -1,0 +1,127 @@
+<%- include('partials/head', { title: 'Kontakt', bodyClass: 'page-contact' }) %>
+<%- include('partials/header') %>
+
+<section class="section">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div>
+        <p class="label label--index">01 / Kontakt</p>
+        <h1 class="h1" style="margin-top:16px">Zadzwoń albo <em>napisz</em>.</h1>
+        <p class="lead" style="margin-top:20px">Najszybciej dodzwonisz się w godzinach pracy. Jeśli nie odbieram — jestem na prezentacji i oddzwonię.</p>
+
+        <dl class="contact-list">
+          <div class="contact-row">
+            <dt>Telefon</dt>
+            <dd>
+              <a class="contact-big" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+              <% if (settings.phoneSecondary) { %>
+                <a class="contact-second" href="<%= h.telHref(settings.phoneSecondary) %>"><%= settings.phoneSecondary %></a>
+              <% } %>
+            </dd>
+          </div>
+
+          <div class="contact-row">
+            <dt>E-mail</dt>
+            <dd>
+              <% if (settings.email) { %>
+                <a href="mailto:<%= settings.email %>"><%= settings.email %></a>
+              <% } else { %>
+                <span class="sk"><span class="sk-line sk-inline" style="--sk-i:0"></span></span>
+                <span class="tag--pending">w przygotowaniu</span>
+              <% } %>
+            </dd>
+          </div>
+
+          <div class="contact-row">
+            <dt>Biuro</dt>
+            <dd>
+              <% if (settings.officeAddress) { %>
+                <%- h.escapeHtml(settings.officeAddress).replace(/\n/g, '<br>') %>
+              <% } else { %>
+                <span class="sk"><span class="sk-line sk-inline" style="--sk-i:1"></span></span>
+                <span class="tag--pending">w przygotowaniu</span>
+              <% } %>
+            </dd>
+          </div>
+
+          <div class="contact-row">
+            <dt>Godziny</dt>
+            <dd><%= settings.officeHours %></dd>
+          </div>
+
+          <div class="contact-row">
+            <dt>Social</dt>
+            <dd>
+              <a href="<%= settings.instagram %>" target="_blank" rel="noopener">Instagram ↗</a>
+              <% if (settings.facebook) { %><a href="<%= settings.facebook %>" target="_blank" rel="noopener">Facebook ↗</a><% } %>
+              <% if (settings.linkedin) { %><a href="<%= settings.linkedin %>" target="_blank" rel="noopener">LinkedIn ↗</a><% } %>
+            </dd>
+          </div>
+        </dl>
+
+        <div style="margin-top:48px">
+          <p class="label" style="margin-bottom:14px">Lokalizacja biura</p>
+          <div class="sk sk-block sk-map" aria-hidden="true"></div>
+          <p class="note--pending">Mapa po ustaleniu adresu</p>
+        </div>
+      </div>
+
+      <div class="form-wrap">
+        <% if (sent) { %>
+          <div class="notice" role="status">
+            <p class="h3">Dziękuję, wiadomość dotarła.</p>
+            <p style="margin-top:8px">Odezwę się najszybciej, jak to możliwe — zwykle tego samego dnia.</p>
+          </div>
+        <% } else { %>
+          <form class="form" method="post" action="/kontakt" novalidate>
+            <% if (error) { %><p class="notice notice--err" role="alert" style="margin-bottom:24px"><%= error %></p><% } %>
+            <p class="form-title">Napisz wiadomość</p>
+
+            <label class="field">
+              <span>Imię i nazwisko</span>
+              <input type="text" name="imie" required autocomplete="name" value="<%= form.imie || '' %>">
+            </label>
+
+            <div class="field-row">
+              <label class="field">
+                <span>E-mail</span>
+                <input type="email" name="email" autocomplete="email" value="<%= form.email || '' %>">
+              </label>
+              <label class="field">
+                <span>Telefon</span>
+                <input type="tel" name="telefon" autocomplete="tel" value="<%= form.telefon || '' %>">
+              </label>
+            </div>
+
+            <label class="field">
+              <span>Temat</span>
+              <input type="text" name="temat" placeholder="np. Sprzedaż mieszkania, os. Baranówka" value="<%= form.temat || '' %>">
+            </label>
+
+            <label class="field">
+              <span>Wiadomość</span>
+              <textarea name="wiadomosc" rows="6" required><%= form.wiadomosc || '' %></textarea>
+            </label>
+
+            <label class="field field--trap" aria-hidden="true">
+              <span>Strona www</span>
+              <input type="text" name="website" tabindex="-1" autocomplete="off">
+            </label>
+
+            <label class="consent">
+              <input type="checkbox" name="zgoda" required>
+              <span>Wyrażam zgodę na przetwarzanie moich danych osobowych w celu odpowiedzi na to zapytanie. Administratorem danych jest <%= settings.ownerFullName || settings.brandName %>. Szczegóły w <a href="/polityka-prywatnosci">polityce prywatności</a>.</span>
+            </label>
+
+            <button class="btn btn--primary btn--block" type="submit">Wyślij wiadomość</button>
+            <p class="form-hint">Podaj e-mail lub telefon — inaczej nie będę mogła odpowiedzieć.</p>
+          </form>
+        <% } %>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

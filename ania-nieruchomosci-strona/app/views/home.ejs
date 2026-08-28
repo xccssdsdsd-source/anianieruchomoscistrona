@@ -1,0 +1,533 @@
+<%
+/* Strona główna. Kolejność: hero → wyszukiwarka → oferty → więcej ofert →
+   asystent → pasy zdjęć i sekcje sprzedażowe.
+   Miejsca bez potwierdzonej treści dostają skeleton (paski) i uczciwą
+   etykietę „w przygotowaniu” — nie udajemy, że dane już są. */
+const oferty = (typeof active !== 'undefined' && active.length) ? active : [];
+const liczbaOfert = typeof total !== 'undefined' ? total : oferty.length;
+const maCeny = oferty.some((p) => p.price);
+
+/* Nagłówek hero łamany na linie — każda w osobnej masce do animacji wejścia. */
+function lamNaLinie(tekst, maxZnakow) {
+  const slowa = String(tekst || '').split(/\s+/).filter(Boolean);
+  const linie = [];
+  let biezaca = '';
+  slowa.forEach((w) => {
+    if (!biezaca) { biezaca = w; return; }
+    if ((biezaca + ' ' + w).length <= maxZnakow) biezaca += ' ' + w;
+    else { linie.push(biezaca); biezaca = w; }
+  });
+  if (biezaca) linie.push(biezaca);
+  // Żadnej linii-sieroty w rodzaju samotnego „w” — dołącz ją do sąsiedniej.
+  for (let i = linie.length - 1; i >= 0; i--) {
+    if (linie[i].length > 4 || linie.length < 2) continue;
+    if (i > 0) { linie[i - 1] += ' ' + linie[i]; linie.splice(i, 1); }
+    else { linie[1] = linie[0] + ' ' + linie[1]; linie.splice(0, 1); }
+  }
+  return linie;
+}
+const linieTytulu = lamNaLinie(settings.heroTitle, 22);
+
+const atuty = [
+  'Bezpłatna wycena',
+  'Kontakt tego samego dnia',
+  'Prezentacje w dogodnych godzinach',
+  'Pełna obsługa formalności',
+  'Rzeszów i całe Podkarpacie',
+  'Bez ukrytych kosztów'
+];
+
+/* Etykiety są prawdziwe — brakuje wyłącznie liczb, stąd skeleton zamiast cyfr. */
+const statystyki = [
+  { l: 'Sprzedanych nieruchomości', s: 'liczba do potwierdzenia z Anią' },
+  { l: 'Średnia ocena klientów', s: 'po podpięciu opinii Google' },
+  { l: 'Miesięcy doświadczenia', s: 'pole „W branży od” w panelu' },
+  { l: 'Średni czas odpowiedzi', s: 'do ustalenia z Anią' }
+];
+
+const powody = [
+  { t: 'Realna wycena, nie życzeniowa', p: 'Mówię wprost, za ile nieruchomość faktycznie się sprzeda i ile to potrwa. Zawyżona cena to stracone pierwsze tygodnie ogłoszenia.' },
+  { t: 'Zdjęcia, które zatrzymują', p: 'Sesja zdjęciowa, ujęcia z drona przy działkach i opis, który mówi o nieruchomości konkretem, a nie ogólnikami.' },
+  { t: 'Promocja tam, gdzie są kupujący', p: 'Portale ogłoszeniowe, mój Instagram i baza osób, które już powiedziały mi, czego szukają.' },
+  { t: 'Prezentacje bez marnowania czasu', p: 'Wstępnie weryfikuję zainteresowanych, żeby po mieszkaniu nie chodzili turyści, tylko realni kupujący.' },
+  { t: 'Formalności po mojej stronie', p: 'Dokumenty, zaświadczenia, terminy u notariusza i protokół zdawczo-odbiorczy — pilnuję tego, żebyś nie musiał.' },
+  { t: 'Jeden telefon przez całą transakcję', p: 'Nie przekazuję Cię dalej. Od pierwszej rozmowy do przekazania kluczy kontakt masz ze mną.' }
+];
+
+const dodatkoweKroki = [
+  { title: 'Przygotowanie nieruchomości do sprzedaży' },
+  { title: 'Weryfikacja kupującego i finansowania' },
+  { title: 'Po transakcji' }
+];
+
+const opinie = [
+  { name: 'Sprzedaż mieszkania', meta: 'Rzeszów' },
+  { name: 'Zakup domu', meta: 'powiat rzeszowski' },
+  { name: 'Wynajem lokalu', meta: 'Rzeszów' }
+];
+
+const faq = [
+  { q: 'Czy pierwsza rozmowa i wycena są płatne?', a: 'Nie. Pierwsza rozmowa i wstępna wycena są bezpłatne i do niczego nie zobowiązują. Dopiero jeśli zdecydujesz się na współpracę, podpisujemy umowę.', wip: false },
+  { q: 'Na jakim obszarze działasz?', a: 'Rzeszów i okolice, a przy większych nieruchomościach — działkach, obiektach komercyjnych — całe Podkarpacie.', wip: false },
+  { q: 'Czy zajmujesz się też wynajmem?', a: 'Tak. Obsługuję wynajem od znalezienia najemcy, przez umowę, po protokół zdawczo-odbiorczy. Dotyczy to zarówno mieszkań, jak i lokali komercyjnych.', wip: false },
+  { q: 'Ile kosztuje współpraca i kto płaci prowizję?', a: '', wip: true },
+  { q: 'Jak długo trwa sprzedaż mieszkania w Rzeszowie?', a: '', wip: true },
+  { q: 'Jakie dokumenty są potrzebne do sprzedaży?', a: '', wip: true }
+];
+
+/* Zdjęcia lotnicze niosą pasy pełnoekranowe — to najmocniejszy materiał, jaki mamy. */
+const pasy = {
+  gora: (oferty.find((p) => p.category === 'dzialka' && p.images && p.images.length) || {}).images,
+  dol: (oferty.filter((p) => p.category === 'dzialka' && p.images && p.images.length)[1] || {}).images
+};
+const pasGora = pasy.gora ? pasy.gora[0].file : '';
+const pasDol = pasy.dol ? pasy.dol[0].file : (pasy.gora && pasy.gora[2] ? pasy.gora[2].file : '');
+%>
+<%- include('partials/head', { title: null, bodyClass: 'page-home' }) %>
+<%- include('partials/header') %>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="label label--index" data-enter style="--enter-d:80ms">01 / Rzeszów · Podkarpacie</p>
+
+        <h1 class="hero-title">
+          <% linieTytulu.forEach((linia, i) => { %>
+            <span class="line"><span style="--i:<%= i %>"><% if (i === linieTytulu.length - 1 && linieTytulu.length > 1) { %><em><%= linia %></em><% } else { %><%= linia %><% } %></span></span>
+          <% }) %>
+        </h1>
+
+        <hr class="rule" data-enter style="--enter-d:520ms">
+
+        <p class="lead hero-lead" data-enter style="--enter-d:600ms"><%= settings.heroLead %></p>
+
+        <div class="hero-actions" data-enter style="--enter-d:680ms">
+          <a class="btn btn--primary" href="#aktualne-oferty">Zobacz aktualne oferty</a>
+          <a class="link-arrow" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+        </div>
+      </div>
+
+      <div class="hero-media" data-enter style="--enter-d:240ms">
+        <div data-enter-frame>
+          <%- include('partials/placeholder', { ph: {
+                src: '',
+                label: 'Zdjęcie · portret',
+                ratio: '4/5'
+              } }) %>
+        </div>
+        <p class="note--pending">Zdjęcie w przygotowaniu</p>
+      </div>
+    </div>
+
+    <!-- Trzy podstawowe informacje o biurze — wszystkie z realnych danych -->
+    <div class="hero-facts">
+      <div class="hero-fact" data-enter style="--enter-d:820ms">
+        <span class="hero-fact-v">Rzeszów +50 km</span>
+        <span class="hero-fact-k">Obszar działania — miasto, okolice i całe Podkarpacie</span>
+      </div>
+      <div class="hero-fact" data-enter style="--enter-d:890ms">
+        <span class="hero-fact-v">Mieszkania · Domy<br>Działki · Komercja</span>
+        <span class="hero-fact-k">Kupno, sprzedaż i wynajem — cztery kategorie</span>
+      </div>
+      <div class="hero-fact" data-enter style="--enter-d:960ms">
+        <span class="hero-fact-v"><%= settings.phone %></span>
+        <span class="hero-fact-k"><%= settings.officeHours %></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WYSZUKIWARKA ═══════════════ -->
+<%- include('partials/search', {
+      counts: counts,
+      total: liczbaOfert,
+      filters: { kategoria: '', typ: '' },
+      hasPrices: maCeny
+    }) %>
+
+<!-- ═══════════════ AKTUALNE OFERTY ═══════════════ -->
+<section class="section" id="aktualne-oferty">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">02 / Aktualne oferty</p>
+        <h2 class="h2">Dostępne <em>od ręki</em>.</h2>
+      </div>
+      <a class="link-arrow" href="/nieruchomosci">Wszystkie oferty</a>
+    </div>
+
+    <div class="offers-index" data-offers>
+      <% oferty.forEach((p, i) => { %>
+        <%- include('partials/card', { p: p, idx: i }) %>
+      <% }) %>
+    </div>
+
+    <div class="empty-state" data-empty-state hidden>
+      <h3 class="h2">Brak ofert w tej kategorii.</h3>
+      <p>Mam też nieruchomości, które nie trafiają na portale — zwłaszcza działki i lokale komercyjne.</p>
+      <a class="empty-phone" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+    </div>
+
+    <p class="offers-note">Ceny i część danych formalnych (numery działek, media, przeznaczenie w planie) potwierdzam dokumentami przed prezentacją. Aktualny status każdej oferty najszybciej sprawdzisz telefonicznie.</p>
+  </div>
+</section>
+
+<!-- ═══════════════ WIĘCEJ OFERT ═══════════════ -->
+<section class="band band--paper2 section--sm">
+  <div class="wrap">
+    <details class="more-offers">
+      <summary>
+        <span class="more-offers-t">Więcej ofert</span>
+        <span class="more-offers-toggle">
+          <span class="txt-closed">Rozwiń</span>
+          <span class="txt-open">Zwiń</span>
+        </span>
+      </summary>
+
+      <div class="more-offers-body">
+        <div class="offers-index">
+          <% for (let i = 0; i < 3; i++) { %>
+            <article class="offer-row" aria-hidden="true">
+              <p class="offer-n"><%= String(oferty.length + i + 1).padStart(2, '0') %></p>
+              <div class="offer-body">
+                <%- include('partials/skeleton', { sk: { lines: [22, 14], variant: '' } }) %>
+                <%- include('partials/skeleton', { sk: { lines: [88, 54], variant: 'title' } }) %>
+                <%- include('partials/skeleton', { sk: { lines: [100, 92, 78, 45] } }) %>
+              </div>
+              <div class="offer-media">
+                <%- include('partials/placeholder', { ph: { src: '', label: 'Zdjęcie oferty', ratio: '16/10' } }) %>
+              </div>
+            </article>
+          <% } %>
+        </div>
+        <p class="note--pending">Kolejne oferty w przygotowaniu</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════ ASYSTENT DOBORU ═══════════════ -->
+<section class="band band--dark" data-advisor>
+  <div class="wrap">
+    <div class="advisor-grid">
+      <div>
+        <p class="label label--index">03 / Asystent doboru</p>
+        <h2 class="h2" style="margin-top:16px">Opisz, czego szukasz.</h2>
+        <p style="margin-top:20px;max-width:42ch">Napisz zwykłym zdaniem, jakiej nieruchomości szukasz. Dopasuję ją do aktualnych ofert i wyjaśnię, dlaczego akurat te.</p>
+      </div>
+
+      <div>
+        <form class="advisor-form">
+          <label class="sr-only" for="dobor">Czego szukasz?</label>
+          <textarea id="dobor" name="zapytanie" maxlength="600"
+                    placeholder="np. Szukam działki pod dom pod Rzeszowem, blisko lasu, z dostępem do drogi asfaltowej"></textarea>
+          <div class="advisor-foot">
+            <p class="advisor-hint">Bez zobowiązań — nie zbieram tu danych kontaktowych.</p>
+            <button type="submit" class="btn btn--light" data-advisor-submit>Dopasuj oferty</button>
+          </div>
+        </form>
+        <div class="advisor-out" data-advisor-out hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PAS ZDJĘCIOWY I ═══════════════ -->
+<% if (pasGora) { %>
+<section class="band-photo" aria-hidden="true">
+  <div class="band-media">
+    <img src="<%= pasGora %>" alt="" loading="lazy" decoding="async" data-parallax="0.20">
+  </div>
+  <div class="band-photo-copy">
+    <div class="wrap">
+      <p class="label">Podkarpacie</p>
+      <p class="band-photo-t">Grunty, siedliska i lokale — także poza Rzeszowem.</p>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<!-- ═══════════════ KATEGORIE ═══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">04 / Kategorie</p>
+        <h2 class="h2">Czym się zajmuję.</h2>
+      </div>
+    </div>
+
+    <div class="index-table">
+      <% Object.entries(C).forEach(([key, cat], i) => {
+           const n = counts[key] || 0; %>
+        <a class="index-row <%= n === 0 ? 'is-empty' : '' %>" href="/nieruchomosci?kategoria=<%= key %>" data-reveal>
+          <span class="index-n"><%= String(i + 1).padStart(2, '0') %></span>
+          <span class="index-name"><%= cat.plural %></span>
+          <span class="index-meta"><%= n === 0 ? 'wkrótce' : n + (n === 1 ? ' oferta' : (n < 5 ? ' oferty' : ' ofert')) %></span>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ANIA W LICZBACH ═══════════════ -->
+<section class="band band--paper2">
+  <div class="wrap">
+    <div class="split-2">
+      <div class="split-intro">
+        <p class="label label--index">05 / Ania w liczbach</p>
+        <h2 class="h2" style="margin-top:16px">Konkret zamiast obietnic.</h2>
+        <p class="note--pending">Dane w przygotowaniu</p>
+      </div>
+
+      <div class="stats-grid">
+        <% statystyki.forEach((s, i) => { %>
+          <div class="stat" data-reveal>
+            <span class="sk"><span class="sk-num" style="--sk-i:<%= i %>"></span></span>
+            <span class="stat-l"><%= s.l %></span>
+            <span class="stat-s"><%= s.s %></span>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DLACZEGO ZE MNĄ ═══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="split-2">
+      <div class="split-intro">
+        <p class="label label--index">06 / Dlaczego ze mną</p>
+        <h2 class="h2" style="margin-top:16px">Sześć rzeczy, które robię <em>inaczej</em>.</h2>
+      </div>
+
+      <ol class="index-list">
+        <% powody.forEach((r, i) => { %>
+          <li data-reveal>
+            <span class="index-list-n"><%= String(i + 1).padStart(2, '0') %></span>
+            <div>
+              <h3 class="h3"><%= r.t %></h3>
+              <p><%= r.p %></p>
+            </div>
+          </li>
+        <% }) %>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PROCES ═══════════════ -->
+<section class="band band--dark" id="proces">
+  <div class="wrap">
+    <div class="split-2">
+      <div class="split-intro">
+        <p class="label label--index">07 / Proces</p>
+        <h2 class="h2" style="margin-top:16px">Od pierwszej rozmowy do kluczy w ręku.</h2>
+        <a class="btn btn--light" style="margin-top:28px" href="/kontakt">Umów bezpłatną rozmowę</a>
+      </div>
+
+      <ol class="timeline">
+        <% (settings.processSteps || []).forEach((step, i) => { %>
+          <li data-reveal>
+            <span class="tl-k"><%= String(i + 1).padStart(2, '0') %></span>
+            <h3><%= step.title %></h3>
+            <p><%= step.text %></p>
+          </li>
+        <% }) %>
+        <% dodatkoweKroki.forEach((step, i) => { %>
+          <li data-reveal>
+            <span class="tl-k"><%= String((settings.processSteps || []).length + i + 1).padStart(2, '0') %></span>
+            <h3><%= step.title %></h3>
+            <%- include('partials/skeleton', { sk: { lines: [100, 88, 54], cls: 'sk--on-dark' } }) %>
+          </li>
+        <% }) %>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PAS ZDJĘCIOWY II ═══════════════ -->
+<% if (pasDol) { %>
+<section class="band-photo" aria-hidden="true">
+  <div class="band-media">
+    <img src="<%= pasDol %>" alt="" loading="lazy" decoding="async" data-parallax="0.20">
+  </div>
+</section>
+<% } %>
+
+<!-- ═══════════════ O MNIE ═══════════════ -->
+<section class="section">
+  <div class="wrap">
+    <div class="about-split">
+      <div class="about-media" data-reveal="mask">
+        <%- include('partials/placeholder', { ph: {
+              src: settings.portraitImage,
+              alt: 'Ania — pośredniczka nieruchomości w Rzeszowie',
+              ratio: '4/5',
+              pos: 'center 20%'
+            } }) %>
+      </div>
+
+      <div>
+        <p class="label label--index">08 / O mnie</p>
+        <h2 class="h2" style="margin-top:16px"><%= settings.aboutIntro %></h2>
+
+        <div style="margin-top:24px">
+          <% if (settings.aboutBody) { %>
+            <div class="prose prose--lead">
+              <% h.paragraphs(settings.aboutBody).forEach((par) => { %><p><%= par %></p><% }) %>
+            </div>
+          <% } else { %>
+            <%- include('partials/skeleton', { sk: { lines: [100, 96, 88, 52], variant: 'lead', note: 'Treść w przygotowaniu' } }) %>
+          <% } %>
+        </div>
+
+        <ul class="checklist">
+          <li>Rzeszów, okolice i całe Podkarpacie</li>
+          <li>Mieszkania, domy, działki i lokale komercyjne</li>
+          <li>Kupno, sprzedaż i wynajem — pełna obsługa formalności</li>
+        </ul>
+
+        <a class="link-arrow" style="margin-top:28px" href="/o-mnie">Poznaj mnie bliżej</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ OPINIE ═══════════════ -->
+<section class="band band--paper2">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">09 / Opinie</p>
+        <h2 class="h2">Co mówią klienci.</h2>
+      </div>
+      <p class="note--pending" style="margin:0;border:0;padding:0">Opinie w zbiórce</p>
+    </div>
+
+    <div class="reviews">
+      <% opinie.forEach((o, i) => { %>
+        <div class="review" data-reveal>
+          <span class="review-n"><%= String(i + 1).padStart(2, '0') %></span>
+          <%- include('partials/skeleton', { sk: { lines: [100, 94, 61], variant: 'lead' } }) %>
+          <div class="review-who">
+            <span class="review-name"><%= o.name %></span>
+            <span class="review-meta"><%= o.meta %></span>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="section" id="faq">
+  <div class="wrap">
+    <div class="split-2">
+      <div class="split-intro">
+        <p class="label label--index">10 / Najczęstsze pytania</p>
+        <h2 class="h2" style="margin-top:16px">Zanim zadzwonisz.</h2>
+      </div>
+
+      <div class="faq">
+        <% faq.forEach((f) => { %>
+          <details data-reveal>
+            <summary>
+              <span class="faq-q-wrap">
+                <span><%= f.q %></span>
+                <% if (f.wip) { %><span class="tag--pending">odpowiedź w przygotowaniu</span><% } %>
+              </span>
+            </summary>
+            <div class="faq-a">
+              <% if (f.wip) { %>
+                <%- include('partials/skeleton', { sk: { lines: [98, 100, 46] } }) %>
+              <% } else { %>
+                <p><%= f.a %></p>
+              <% } %>
+            </div>
+          </details>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ WYCENA ═══════════════ -->
+<section class="section section--top0">
+  <div class="wrap">
+    <div class="panel panel-grid">
+      <div class="panel-copy">
+        <p class="label label--index">11 / Wycena</p>
+        <h2 class="h2" style="margin-top:16px">Bezpłatna wycena nieruchomości.</h2>
+        <p class="lead" style="margin-top:20px">Krótki formularz: typ nieruchomości, lokalizacja, metraż i kontakt. Odpowiedź z widełkami cenowymi wraca w umówionym terminie.</p>
+        <ul class="checklist">
+          <li>Wycena bez zobowiązań i bez umowy na wyłączność</li>
+          <li>Widełki cenowe oparte o realne transakcje z okolicy</li>
+          <li>Informacja, co warto poprawić przed wystawieniem oferty</li>
+        </ul>
+        <a class="link-arrow" style="margin-top:28px" href="/kontakt?temat=Wycena%20nieruchomo%C5%9Bci">Do czasu wdrożenia — formularz kontaktowy</a>
+      </div>
+
+      <div class="panel-form">
+        <div class="sk-form sk" aria-hidden="true">
+          <span class="sk-field" style="--sk-i:0"></span>
+          <span class="sk-field" style="--sk-i:1"></span>
+          <span class="sk-field" style="--sk-i:2"></span>
+          <span class="sk-field" style="--sk-i:3"></span>
+          <span class="sk-btn" style="--sk-i:4"></span>
+        </div>
+        <p class="note--pending">Moduł wyceny w przygotowaniu</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INSTAGRAM ═══════════════ -->
+<section class="section section--top0">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">12 / Social media</p>
+        <h2 class="h2">Na bieżąco na Instagramie.</h2>
+      </div>
+      <a class="link-arrow" href="<%= settings.instagram %>" target="_blank" rel="noopener">@ania.nieruchomosci</a>
+    </div>
+  </div>
+
+  <div class="ig-sheet">
+    <% for (let i = 0; i < 6; i++) {
+         const img = (settings.instagramImages || [])[i]; %>
+      <% if (img) { %>
+        <a class="ig-cell" href="<%= settings.instagram %>" target="_blank" rel="noopener">
+          <%- include('partials/placeholder', { ph: { src: img.file || img, alt: 'Post na Instagramie', ratio: '1/1' } }) %>
+        </a>
+      <% } else { %>
+        <div class="ig-cell">
+          <div class="sk sk-block sk-tile">
+            <span class="sk-line" style="--sk-i:<%= i %>;width:52%"></span>
+            <span class="sk-line" style="--sk-i:<%= i + 1 %>;width:30%"></span>
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+</section>
+
+<!-- ═══════════════ CTA ═══════════════ -->
+<section class="band band--accent section--sm">
+  <div class="wrap cta-grid">
+    <div>
+      <h2 class="cta-title"><%= settings.ctaTitle %></h2>
+      <p class="cta-text"><%= settings.ctaText %></p>
+    </div>
+    <div class="cta-actions">
+      <a class="cta-phone" href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+      <a class="btn btn--light" href="/kontakt">Napisz wiadomość</a>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,39 @@
+<%- include('_head', { title: 'Nieruchomości' }) %>
+<header class="a-head">
+  <div><p class="a-eyebrow">Nieruchomości</p><h1><%= properties.length %> <%= properties.length === 1 ? 'wpis' : (properties.length > 1 && properties.length < 5 ? 'wpisy' : 'wpisów') %></h1></div>
+  <a class="a-btn a-btn--primary" href="/admin/nieruchomosci/nowa">+ Dodaj nieruchomość</a>
+</header>
+
+<div class="a-toolbar">
+  <input type="search" class="a-input" placeholder="Szukaj po tytule lub lokalizacji…" data-filter-input>
+  <select class="a-input" data-filter-status>
+    <option value="">Wszystkie statusy</option>
+    <% Object.entries(S).forEach(([k, s]) => { %><option value="<%= k %>"><%= s.label %></option><% }) %>
+  </select>
+</div>
+
+<div class="a-table-wrap">
+<table class="a-table" data-filter-table>
+  <thead><tr><th></th><th>Tytuł</th><th>Typ</th><th>Cena</th><th>Status</th><th>Zdjęcia</th><th>Zmieniono</th><th></th></tr></thead>
+  <tbody>
+  <% properties.forEach((p) => { %>
+    <tr data-status="<%= p.status %>" data-text="<%= (p.title + ' ' + p.location).toLowerCase() %>">
+      <td><span class="a-thumb"><% if (p.images && p.images[0]) { %><img src="<%= p.images[0].file %>" alt=""><% } %></span></td>
+      <td><a class="a-strong" href="/admin/nieruchomosci/<%= p.id %>"><%= p.title %></a><small><%= p.location %><% if (p.featured) { %> · <b>★ wyróżniona</b><% } %></small></td>
+      <td class="a-nowrap"><%= C[p.category].label %><br><small><%= T[p.transaction].label %></small></td>
+      <td class="a-nowrap"><%= h.formatPrice(p.price) || '—' %></td>
+      <td><span class="a-status a-status--<%= p.status %>"><%= S[p.status].label %></span></td>
+      <td><%= (p.images || []).length %></td>
+      <td class="a-nowrap a-muted"><%= h.formatDate(p.updatedAt) %></td>
+      <td class="a-nowrap a-actions">
+        <a href="/nieruchomosci/<%= p.slug %>" target="_blank" rel="noopener" title="Podgląd">↗</a>
+        <form method="post" action="/admin/nieruchomosci/<%= p.id %>/duplikuj"><button type="submit" class="a-link" title="Duplikuj">⧉</button></form>
+        <form method="post" action="/admin/nieruchomosci/<%= p.id %>/usun" data-confirm="Usunąć „<%= p.title %>” razem ze zdjęciami?"><button type="submit" class="a-link a-danger" title="Usuń">✕</button></form>
+      </td>
+    </tr>
+  <% }) %>
+  </tbody>
+</table>
+</div>
+<p class="a-muted a-empty" data-filter-empty hidden>Nic nie pasuje do filtra.</p>
+<%- include('_foot') %>

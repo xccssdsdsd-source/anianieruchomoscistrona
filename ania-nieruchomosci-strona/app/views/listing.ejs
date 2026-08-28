@@ -1,0 +1,179 @@
+<%
+const p = property;
+const price = h.formatPrice(p.price);
+const perM2 = p.transaction === 'sprzedaz' ? h.pricePerM2(p.price, p.area) : null;
+const images = p.images || [];
+const slots = Math.max(5, images.length);
+const powierzchnia = h.areaFor(p);
+const lokalizacja = h.cleanLocation(p.location);
+const lokalizacjaPending = h.isPlaceholderText(p.location);
+
+const params = [
+  ['Lokalizacja', lokalizacja],
+  ['Adres', p.address],
+  ['Powierzchnia', powierzchnia],
+  ['Działka', h.formatLandArea(p.plotArea)],
+  ['Pokoje', p.rooms],
+  ['Piętro', p.floor],
+  ['Rok budowy', p.year],
+  ...(p.extras || []).map((e) => [e.label, e.value])
+].filter(([, v]) => v !== null && v !== undefined && v !== '' && !h.isPlaceholderText(String(v)));
+
+const desc = (p.description || '').slice(0, 160);
+%>
+<%- include('partials/head', {
+      title: p.title,
+      description: `${C[p.category].label} · ${T[p.transaction].short} · ${lokalizacja}. ${desc}`,
+      ogImage: images[0] ? images[0].file : '',
+      bodyClass: 'page-listing'
+    }) %>
+<%- include('partials/header') %>
+
+<script type="application/ld+json">
+<%- JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateListing",
+  "name": p.title,
+  "description": p.description,
+  "url": (settings.siteUrl || '') + '/nieruchomosci/' + p.slug,
+  "datePosted": p.createdAt,
+  "image": images.map((i) => (settings.siteUrl || '') + i.file),
+  "offers": p.price ? { "@type": "Offer", "price": p.price, "priceCurrency": "PLN", "availability": p.status === 'aktywna' ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut' } : undefined,
+  "about": { "@type": "Place", "name": lokalizacja, "address": { "@type": "PostalAddress", "addressLocality": lokalizacja, "addressRegion": "Podkarpackie", "addressCountry": "PL" } }
+}) %>
+</script>
+
+<nav class="crumbs wrap" aria-label="Okruszki">
+  <a href="/">Start</a><span>/</span><a href="/nieruchomosci">Oferty</a><span>/</span><a href="/nieruchomosci?kategoria=<%= p.category %>"><%= C[p.category].plural %></a>
+</nav>
+
+<section class="listing-head wrap">
+  <p class="offer-kind">
+    <span class="label"><%= C[p.category].label %></span>
+    <span class="label">·</span>
+    <span class="label"><%= T[p.transaction].short %></span>
+    <% if (p.status !== 'aktywna') { %><span class="status-pill"><%= S[p.status].label %></span><% } %>
+  </p>
+  <h1 class="h1"><%= p.title %></h1>
+  <p class="listing-loc">
+    <% if (lokalizacja) { %><%= lokalizacja %><% } %><% if (p.address) { %> · <%= p.address %><% } %>
+    <% if (lokalizacjaPending) { %><span class="tag--pending">dokładna lokalizacja w przygotowaniu</span><% } %>
+  </p>
+</section>
+
+<section class="wrap">
+  <div class="gallery" data-gallery data-reveal="mask">
+    <% for (let i = 0; i < slots; i++) { const img = images[i]; %>
+      <a class="gallery-item <%= i === 0 ? 'gallery-item--main' : '' %>"
+         href="<%= img ? img.file : '#' %>" data-gallery-item <%= img ? '' : 'data-empty' %>
+         aria-label="<%= img ? (img.alt || 'Zdjęcie ' + (i + 1)) : 'Miejsce na zdjęcie ' + (i + 1) %>">
+        <%- include('partials/placeholder', { ph: {
+              src: img ? img.file : '',
+              alt: img ? img.alt : '',
+              label: i === 0 ? 'Zdjęcie główne' : 'Zdjęcie ' + (i + 1),
+              ratio: i === 0 ? '8/6' : '4/3',
+              lazy: i > 0
+            } }) %>
+      </a>
+    <% } %>
+    <% if (images.length > 5) { %><span class="gallery-more"><%= images.length %> zdjęć w galerii</span><% } %>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="listing-body">
+    <div class="listing-main">
+      <% if (p.features && p.features.length) { %>
+        <ul class="spec-list" data-reveal>
+          <% p.features.forEach((f) => { %><li><%= f %></li><% }) %>
+        </ul>
+      <% } %>
+
+      <div class="prose" data-reveal>
+        <h2 class="h3" style="margin-top:0">O nieruchomości</h2>
+        <% const paras = h.paragraphs(p.description); %>
+        <% if (paras.length) { %>
+          <% paras.forEach((para) => { %><p><%= para %></p><% }) %>
+        <% } else { %>
+          <%- include('partials/skeleton', { sk: { lines: [100, 93, 98, 88, 95, 37], note: 'Opis w przygotowaniu' } }) %>
+        <% } %>
+      </div>
+
+      <dl class="params" data-reveal>
+        <% params.forEach(([k, v]) => { %>
+          <div class="param-row"><dt><%= k %></dt><dd><%= v %></dd></div>
+        <% }) %>
+      </dl>
+
+      <div style="margin-top:56px" data-reveal>
+        <p class="label" style="margin-bottom:14px">Okolica<% if (lokalizacja) { %> · <%= lokalizacja %><% } %></p>
+        <div class="sk sk-block sk-map" aria-hidden="true"></div>
+        <p class="note--pending">Mapa okolicy w przygotowaniu</p>
+      </div>
+    </div>
+
+    <aside class="listing-side">
+      <div class="side-card">
+        <p class="label">Cena</p>
+        <p class="side-price" style="margin-top:8px">
+          <% if (price) { %><%= price %><% if (p.transaction === 'wynajem') { %><span class="offer-price-unit"> / mies.</span><% } %><% } else { %>Do uzgodnienia<% } %>
+        </p>
+        <% if (perM2) { %><p class="side-perm2"><%= perM2 %></p><% } %>
+        <% if (p.priceNote) { %><p class="side-note"><%= p.priceNote %></p><% } %>
+
+        <dl class="side-facts">
+          <% if (powierzchnia) { %><div class="param-row"><dt>Powierzchnia</dt><dd><%= powierzchnia %></dd></div><% } %>
+          <% if (p.rooms) { %><div class="param-row"><dt>Pokoje</dt><dd><%= p.rooms %></dd></div><% } %>
+          <% if (p.plotArea) { %><div class="param-row"><dt>Działka</dt><dd><%= h.formatLandArea(p.plotArea) %></dd></div><% } %>
+          <% if (p.floor) { %><div class="param-row"><dt>Piętro</dt><dd><%= p.floor %></dd></div><% } %>
+        </dl>
+
+        <div class="side-actions">
+          <a class="btn btn--primary btn--block" href="<%= h.telHref(settings.phone) %>">Zadzwoń: <%= settings.phone %></a>
+          <a class="btn btn--block" href="/kontakt?temat=<%= encodeURIComponent('Pytanie o ofertę: ' + p.title) %>">Zapytaj o tę ofertę</a>
+        </div>
+
+        <div class="side-agent">
+          <div class="side-avatar">
+            <%- include('partials/placeholder', { ph: {
+                  src: settings.portraitImage, alt: settings.ownerName,
+                  label: 'Portret', ratio: '1/1', pos: 'center 20%'
+                } }) %>
+          </div>
+          <div>
+            <span class="side-agent-name"><%= settings.ownerFullName || settings.ownerName %></span>
+            <span class="side-agent-role">Pośredniczka nieruchomości, Rzeszów</span>
+          </div>
+        </div>
+
+        <p class="side-id">Nr oferty: <%= p.id.toUpperCase() %></p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<% if (related.length) { %>
+<section class="band band--paper2 section--sm">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <p class="label label--index">Podobne oferty</p>
+        <h2 class="h2">Zobacz także.</h2>
+      </div>
+      <a class="link-arrow" href="/nieruchomosci?kategoria=<%= p.category %>">Wszystkie: <%= C[p.category].plural.toLowerCase() %></a>
+    </div>
+    <div class="offers-index">
+      <% related.forEach((r, i) => { %><%- include('partials/card', { p: r, idx: i }) %><% }) %>
+    </div>
+  </div>
+</section>
+<% } %>
+
+<div class="lightbox" data-lightbox hidden>
+  <button class="lightbox-close" type="button" data-lightbox-close aria-label="Zamknij">×</button>
+  <button class="lightbox-prev" type="button" data-lightbox-prev aria-label="Poprzednie">‹</button>
+  <img alt="">
+  <button class="lightbox-next" type="button" data-lightbox-next aria-label="Następne">›</button>
+</div>
+
+<%- include('partials/footer') %>

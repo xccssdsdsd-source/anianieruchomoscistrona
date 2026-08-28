@@ -1,0 +1,19 @@
+<%
+/* Zdjęcie albo zarezerwowane miejsce na zdjęcie.
+   ph = { src, alt, label, ratio: '4/3', cls: '', lazy: true, hint, pos } */
+const _ph = typeof ph === 'object' && ph ? ph : {};
+const _ratio = _ph.ratio || '4/3';
+const _cls = _ph.cls || '';
+%>
+<% if (_ph.src) { %>
+<figure class="photo <%= _cls %>" style="--ratio:<%= _ratio %><%= _ph.pos ? ';--of-pos:' + _ph.pos : '' %>">
+  <img src="<%= _ph.src %>" alt="<%= _ph.alt || '' %>" <%= _ph.lazy === false ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"' %>>
+</figure>
+<% } else { %>
+<figure class="sk sk-block <%= _cls %>" style="--ratio:<%= _ratio %>" role="img" aria-label="Miejsce na zdjęcie: <%= _ph.label || '' %>">
+  <% if (_ph.label) { %><span class="label sk-block-label"><%= _ph.label %></span><% } %>
+  <span class="sk-line" style="--sk-i:0;width:58%"></span>
+  <span class="sk-line" style="--sk-i:1;width:34%"></span>
+</figure>
+<% if (_ph.hint) { %><p class="tag--pending"><%= _ph.hint %></p><% } %>
+<% } %>

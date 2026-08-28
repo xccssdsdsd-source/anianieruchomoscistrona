@@ -1,0 +1,63 @@
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p class="footer-mark"><%= settings.brandName %></p>
+
+    <div class="footer-index">
+      <div class="footer-col">
+        <span class="footer-h">Biuro</span>
+        <p class="footer-tag"><%= settings.tagline %></p>
+        <% if (settings.ownerFullName) { %>
+          <p><%= settings.ownerFullName %></p>
+        <% } %>
+        <% if (settings.officeAddress) { %>
+          <p><%- h.escapeHtml(settings.officeAddress).replace(/\n/g, '<br>') %></p>
+        <% } else { %>
+          <p><span class="sk"><span class="sk-line sk-inline" style="--sk-i:0"></span></span></p>
+          <p class="tag--pending">adres w przygotowaniu</p>
+        <% } %>
+        <p><%= settings.officeHours %></p>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-h">Oferty</span>
+        <% Object.entries(C).forEach(([key, cat]) => { %>
+          <a href="/nieruchomosci?kategoria=<%= key %>"><%= cat.plural %></a>
+        <% }) %>
+        <a href="/nieruchomosci?typ=wynajem">Na wynajem</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-h">Kontakt</span>
+        <a href="<%= h.telHref(settings.phone) %>"><%= settings.phone %></a>
+        <% if (settings.phoneSecondary) { %>
+          <a href="<%= h.telHref(settings.phoneSecondary) %>"><%= settings.phoneSecondary %></a>
+        <% } %>
+        <% if (settings.email) { %>
+          <a href="mailto:<%= settings.email %>"><%= settings.email %></a>
+        <% } else { %>
+          <p><span class="sk"><span class="sk-line sk-inline" style="--sk-i:0"></span></span></p>
+        <% } %>
+        <a href="<%= settings.instagram %>" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+
+      <div class="footer-col">
+        <span class="footer-h">Serwis</span>
+        <a href="/o-mnie">O mnie</a>
+        <a href="/kontakt">Napisz wiadomość</a>
+        <a href="/polityka-prywatnosci">Polityka prywatności</a>
+        <a href="/admin"><%= isAdmin ? 'Panel' : 'Logowanie' %></a>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© <%= new Date().getFullYear() %> <%= settings.brandName %>, Rzeszów</span>
+      <span class="footer-links">
+        <a href="#tresc">Na górę ↑</a>
+      </span>
+    </div>
+  </div>
+</footer>
+<script src="<%= v('/js/site.js') %>" defer></script>
+</body>
+</html>

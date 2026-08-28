@@ -1,0 +1,17 @@
+<%- include('_head', { title: 'Logowanie', bare: true }) %>
+<div class="a-login">
+  <form class="a-login-box" method="post" action="/admin/login">
+    <p class="a-login-brand"><%= settings.brandName %></p>
+    <h1>Panel administracyjny</h1>
+    <% if (error) { %><p class="a-alert a-alert--err"><%= error %></p><% } %>
+    <input type="hidden" name="next" value="<%= next %>">
+    <label class="a-field">
+      <span>Hasło</span>
+      <input type="password" name="password" autocomplete="current-password" autofocus required>
+    </label>
+    <button class="a-btn a-btn--primary a-btn--block" type="submit">Zaloguj</button>
+    <% if (defaultPassword) { %><p class="a-login-hint">Pierwsze logowanie: hasło domyślne to <code>ania2026</code> (zmień je zaraz po zalogowaniu).</p><% } %>
+    <a class="a-login-back" href="/">← wróć na stronę</a>
+  </form>
+</div>
+<%- include('_foot', { bare: true }) %>

@@ -1,0 +1,117 @@
+<% const p = property; %>
+<%- include('_head', { title: isNew ? 'Nowa nieruchomość' : p.title }) %>
+<form method="post" action="/admin/nieruchomosci/<%= isNew ? 'nowa' : p.id %>" enctype="multipart/form-data" class="a-form" data-dirty>
+<header class="a-head a-head--sticky">
+  <div>
+    <p class="a-eyebrow"><a href="/admin/nieruchomosci">← Nieruchomości</a></p>
+    <h1><%= isNew ? 'Nowa nieruchomość' : 'Edycja oferty' %></h1>
+  </div>
+  <div class="a-head-actions">
+    <% if (typeof saved !== 'undefined' && saved) { %><span class="a-saved">Zapisano ✓</span><% } %>
+    <% if (!isNew) { %><a class="a-btn" href="/nieruchomosci/<%= p.slug %>" target="_blank" rel="noopener">Podgląd ↗</a><% } %>
+    <button class="a-btn a-btn--primary" type="submit">Zapisz</button>
+  </div>
+</header>
+
+<div class="a-form-grid">
+  <div class="a-form-main">
+    <section class="a-card">
+      <h2>Podstawowe</h2>
+      <label class="a-field"><span>Tytuł oferty</span><input type="text" name="title" required value="<%= p.title %>" placeholder="np. Mieszkanie 3-pokojowe z tarasem, os. Biała"></label>
+      <div class="a-row">
+        <label class="a-field"><span>Kategoria</span>
+          <select name="category"><% Object.entries(C).forEach(([k, c]) => { %><option value="<%= k %>" <%= p.category === k ? 'selected' : '' %>><%= c.label %></option><% }) %></select>
+        </label>
+        <label class="a-field"><span>Transakcja</span>
+          <select name="transaction"><% Object.entries(T).forEach(([k, t]) => { %><option value="<%= k %>" <%= p.transaction === k ? 'selected' : '' %>><%= t.label %></option><% }) %></select>
+        </label>
+        <label class="a-field"><span>Status</span>
+          <select name="status"><% Object.entries(S).forEach(([k, s]) => { %><option value="<%= k %>" <%= p.status === k ? 'selected' : '' %>><%= s.label %></option><% }) %></select>
+        </label>
+      </div>
+      <div class="a-row">
+        <label class="a-field"><span>Lokalizacja (widoczna)</span><input type="text" name="location" value="<%= p.location %>" placeholder="np. os. Biała, Rzeszów"></label>
+        <label class="a-field"><span>Ulica / adres (opcjonalnie)</span><input type="text" name="address" value="<%= p.address %>" placeholder="np. ul. Wojtyły"></label>
+      </div>
+      <label class="a-check"><input type="checkbox" name="featured" <%= p.featured ? 'checked' : '' %>> <span>Wyróżnij na stronie głównej (pokazywane są maks. 3)</span></label>
+    </section>
+
+    <section class="a-card">
+      <h2>Cena i parametry</h2>
+      <div class="a-row">
+        <label class="a-field"><span>Cena (zł)</span><input type="text" inputmode="decimal" name="price" value="<%= p.price ?? '' %>" placeholder="puste = „Cena do uzgodnienia”"></label>
+        <label class="a-field a-field--wide"><span>Dopisek do ceny</span><input type="text" name="priceNote" value="<%= p.priceNote %>" placeholder="np. + 500 zł opłaty, kaucja 3 400 zł"></label>
+      </div>
+      <div class="a-row a-row--4">
+        <label class="a-field"><span>Powierzchnia (m²)</span><input type="text" inputmode="decimal" name="area" value="<%= p.area ?? '' %>"></label>
+        <label class="a-field"><span>Pokoje</span><input type="text" inputmode="numeric" name="rooms" value="<%= p.rooms ?? '' %>"></label>
+        <label class="a-field"><span>Piętro</span><input type="text" name="floor" value="<%= p.floor %>" placeholder="np. 2 / parter"></label>
+        <label class="a-field"><span>Rok budowy</span><input type="text" inputmode="numeric" name="year" value="<%= p.year %>"></label>
+      </div>
+      <label class="a-field"><span>Powierzchnia działki (m²) — domy i działki</span><input type="text" inputmode="decimal" name="plotArea" value="<%= p.plotArea ?? '' %>"></label>
+
+      <div class="a-sub">
+        <div class="a-sub-head"><span>Dodatkowe parametry</span><button type="button" class="a-btn a-btn--small" data-add-row="extras">+ dodaj</button></div>
+        <div class="a-rows" data-rows="extras">
+          <% (p.extras.length ? p.extras : [{ label: '', value: '' }]).forEach((e) => { %>
+            <div class="a-row a-row--pair" data-row>
+              <input type="text" name="extraLabel" value="<%= e.label %>" placeholder="np. Ogrzewanie">
+              <input type="text" name="extraValue" value="<%= e.value %>" placeholder="np. gazowe, pompa ciepła">
+              <button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button>
+            </div>
+          <% }) %>
+        </div>
+        <template data-row-template="extras">
+          <div class="a-row a-row--pair" data-row>
+            <input type="text" name="extraLabel" placeholder="np. Ogrzewanie">
+            <input type="text" name="extraValue" placeholder="np. gazowe, pompa ciepła">
+            <button type="button" class="a-link a-danger" data-remove-row aria-label="Usuń">✕</button>
+          </div>
+        </template>
+      </div>
+    </section>
+
+    <section class="a-card">
+      <h2>Opis</h2>
+      <label class="a-field"><span>Atuty (po przecinku lub każdy w nowej linii)</span><textarea name="features" rows="3" placeholder="klimatyzacja, 2 miejsca parkingowe, osiedle zamknięte"><%= p.features.join(', ') %></textarea></label>
+      <label class="a-field"><span>Pełny opis (pusta linia = nowy akapit)</span><textarea name="description" rows="12" placeholder="Nagłówek z lokalizacją, najważniejsze parametry, atuty i okolica, warunki."><%= p.description %></textarea></label>
+    </section>
+  </div>
+
+  <aside class="a-form-side">
+    <section class="a-card">
+      <h2>Zdjęcia</h2>
+      <p class="a-muted">Pierwsze zdjęcie jest zdjęciem głównym. Przeciągnij, żeby zmienić kolejność. JPG, PNG lub WebP, do 15 MB.</p>
+      <div class="a-photos" data-sortable>
+        <% p.images.forEach((img) => { %>
+          <div class="a-photo" draggable="true" data-photo>
+            <img src="<%= img.file %>" alt="">
+            <input type="hidden" name="imageFile" value="<%= img.file %>">
+            <input type="text" name="imageAlt" value="<%= img.alt %>" placeholder="opis (alt)">
+            <button type="button" class="a-photo-x" data-remove-photo aria-label="Usuń zdjęcie">✕</button>
+          </div>
+        <% }) %>
+      </div>
+      <label class="a-drop" data-drop>
+        <input type="file" name="images" accept="image/jpeg,image/png,image/webp,image/avif" multiple data-file-input>
+        <span>Przeciągnij zdjęcia tutaj albo <u>wybierz z dysku</u></span>
+        <small data-file-count></small>
+      </label>
+    </section>
+
+    <section class="a-card">
+      <h2>Adres strony</h2>
+      <label class="a-field"><span>Slug (końcówka adresu URL)</span><input type="text" name="slug" value="<%= p.slug %>" placeholder="generowany z tytułu"></label>
+      <% if (!isNew) { %><p class="a-muted a-break">/nieruchomosci/<%= p.slug %></p><% } %>
+    </section>
+
+    <% if (!isNew) { %>
+    <section class="a-card a-card--danger">
+      <h2>Strefa ryzyka</h2>
+      <button type="submit" class="a-btn a-btn--danger" formaction="/admin/nieruchomosci/<%= p.id %>/usun" formnovalidate data-confirm="Usunąć tę ofertę razem ze zdjęciami? Tego nie da się cofnąć.">Usuń ofertę</button>
+    </section>
+    <% } %>
+  </aside>
+</div>
+</form>
+<%- include('_foot') %>

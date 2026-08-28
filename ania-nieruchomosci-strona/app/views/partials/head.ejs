@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pl" class="no-js">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title><%= title ? `${title} — ${settings.brandName}` : `${settings.brandName} · Rzeszów` %></title>
+<meta name="description" content="<%= typeof description !== 'undefined' && description ? description : settings.metaDescription %>">
+<% if (settings.siteUrl) { %><link rel="canonical" href="<%= settings.siteUrl + path %>"><% } %>
+<meta property="og:title" content="<%= title ? `${title} — ${settings.brandName}` : settings.brandName %>">
+<meta property="og:description" content="<%= typeof description !== 'undefined' && description ? description : settings.metaDescription %>">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pl_PL">
+<% const _og = (typeof ogImage !== 'undefined' && ogImage) ? ogImage : '/img/og.jpg'; %>
+<meta property="og:image" content="<%= (settings.siteUrl || '') + _og %>">
+<meta property="og:image:alt" content="<%= settings.brandName %>">
+<% if (_og === '/img/og.jpg') { %><meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630"><% } %>
+<% if (settings.siteUrl) { %><meta property="og:url" content="<%= settings.siteUrl + path %>"><% } %>
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#2f4a3e">
+<link rel="icon" href="/img/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/img/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/img/favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Manrope:wght@400..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="<%= v('/css/site.css') %>">
+<script type="application/ld+json">
+<%- JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": settings.brandName,
+  "url": settings.siteUrl || undefined,
+  "telephone": settings.phone ? '+48' + settings.phone.replace(/\D/g, '') : undefined,
+  "email": settings.email || undefined,
+  "areaServed": "Rzeszów, Podkarpacie",
+  "sameAs": [settings.instagram, settings.facebook, settings.linkedin].filter(Boolean)
+}) %>
+</script>
+</head>
+<body class="<%= typeof bodyClass !== 'undefined' ? bodyClass : '' %>">
+<a class="skip" href="#tresc">Przejdź do treści</a>

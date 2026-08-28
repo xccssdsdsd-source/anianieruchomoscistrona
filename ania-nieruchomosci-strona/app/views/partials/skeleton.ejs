@@ -1,0 +1,12 @@
+<%
+/* Zaślepka treści jako linie. Zamiast rozmycia i plakietek — spokojne paski.
+   sk = { lines: [100, 92, 84, 47], variant: ''|'title'|'lead', note: 'W przygotowaniu' } */
+const _sk = (typeof sk === 'object' && sk) ? sk : {};
+const _lines = Array.isArray(_sk.lines) && _sk.lines.length ? _sk.lines : [100, 94, 88, 52];
+const _variant = _sk.variant ? ' sk--' + _sk.variant : '';
+const _cls = _sk.cls ? ' ' + _sk.cls : '';
+%>
+<div class="sk<%= _variant %><%= _cls %>" aria-hidden="true">
+  <% _lines.forEach((w, i) => { %><span class="sk-line" style="--sk-i:<%= i %>;width:<%= w %>%"></span><% }) %>
+</div>
+<% if (_sk.note) { %><p class="note--pending"><%= _sk.note %></p><% } %>

@@ -1,0 +1,20 @@
+{
+  "name": "ania-nieruchomosci",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Strona personalna Ania Nieruchomości (Rzeszów) z panelem administracyjnym",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.122.0",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "multer": "^2.2.0"
+  }
+}

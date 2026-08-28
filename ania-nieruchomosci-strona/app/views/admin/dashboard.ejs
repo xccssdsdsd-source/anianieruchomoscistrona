@@ -1,0 +1,59 @@
+<%- include('_head', { title: 'Pulpit' }) %>
+<header class="a-head">
+  <div><p class="a-eyebrow">Pulpit</p><h1>Dzień dobry, <%= settings.ownerName %>.</h1></div>
+  <a class="a-btn a-btn--primary" href="/admin/nieruchomosci/nowa">+ Dodaj nieruchomość</a>
+</header>
+
+<div class="a-stats">
+  <a class="a-stat" href="/admin/nieruchomosci"><b><%= stats.active %></b><span>aktywnych ofert</span></a>
+  <a class="a-stat" href="/admin/nieruchomosci"><b><%= stats.total %></b><span>wszystkich wpisów</span></a>
+  <a class="a-stat <%= stats.noPhotos ? 'a-stat--warn' : '' %>" href="/admin/nieruchomosci"><b><%= stats.noPhotos %></b><span>bez zdjęć</span></a>
+  <a class="a-stat <%= stats.unread ? 'a-stat--hot' : '' %>" href="/admin/wiadomosci"><b><%= stats.unread %></b><span>nieprzeczytanych wiadomości</span></a>
+</div>
+
+<div class="a-cols">
+  <section class="a-card">
+    <div class="a-card-head"><h2>Ostatnio edytowane</h2><a href="/admin/nieruchomosci">wszystkie →</a></div>
+    <% if (!recentProps.length) { %><p class="a-muted">Brak nieruchomości. Dodaj pierwszą.</p><% } %>
+    <ul class="a-list">
+      <% recentProps.forEach((p) => { %>
+        <li>
+          <a href="/admin/nieruchomosci/<%= p.id %>">
+            <span class="a-thumb"><% if (p.images && p.images[0]) { %><img src="<%= p.images[0].file %>" alt=""><% } %></span>
+            <span class="a-list-main"><b><%= p.title %></b><small><%= p.location %> · <%= C[p.category].label %> · <%= T[p.transaction].label %></small></span>
+            <span class="a-status a-status--<%= p.status %>"><%= S[p.status].label %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+
+  <section class="a-card">
+    <div class="a-card-head"><h2>Wiadomości</h2><a href="/admin/wiadomosci">wszystkie →</a></div>
+    <% if (!recentMessages.length) { %><p class="a-muted">Jeszcze nikt nie napisał przez formularz.</p><% } %>
+    <ul class="a-list">
+      <% recentMessages.forEach((m) => { %>
+        <li>
+          <a href="/admin/wiadomosci#m-<%= m.id %>" class="<%= m.read ? '' : 'is-unread' %>">
+            <span class="a-list-main"><b><%= m.imie %></b><small><%= m.temat || m.wiadomosc.slice(0, 60) %></small></span>
+            <span class="a-muted a-nowrap"><%= h.formatDate(m.createdAt) %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  </section>
+</div>
+
+<section class="a-card a-card--tips">
+  <h2>Co jeszcze warto uzupełnić</h2>
+  <ul class="a-checklist">
+    <li class="<%= settings.heroImage ? 'done' : '' %>">Zdjęcie główne na stronie startowej <a href="/admin/ustawienia#zdjecia">→ Ustawienia</a></li>
+    <li class="<%= settings.portraitImage ? 'done' : '' %>">Portret (sekcja „O mnie” i karta przy ofercie) <a href="/admin/ustawienia#zdjecia">→ Ustawienia</a></li>
+    <li class="<%= settings.aboutBody ? 'done' : '' %>">Tekst „O mnie” <a href="/admin/ustawienia#omnie">→ Ustawienia</a></li>
+    <li class="<%= settings.email ? 'done' : '' %>">Adres e-mail <a href="/admin/ustawienia#kontakt">→ Ustawienia</a></li>
+    <li class="<%= settings.officeAddress ? 'done' : '' %>">Adres biura <a href="/admin/ustawienia#kontakt">→ Ustawienia</a></li>
+    <li class="<%= settings.ownerFullName ? 'done' : '' %>">Imię i nazwisko (stopka, RODO) <a href="/admin/ustawienia#marka">→ Ustawienia</a></li>
+    <li class="<%= !defaultPassword ? 'done' : '' %>">Własne hasło do panelu <a href="/admin/haslo">→ Hasło</a></li>
+  </ul>
+</section>
+<%- include('_foot') %>
