@@ -218,7 +218,52 @@ p{text-wrap:pretty}
 
 /* znak firmowy — jedno wystąpienie, na tle zbliżonym do jego własnego */
 .mark{margin-top:36px;padding-top:28px;border-top:1px solid var(--line)}
-.mark img{width:100%;max-width:320px;border-radius:2px}
+.mark img{width:100%;max-width:320px;border-radius:2px;border:1px solid var(--line)}
+
+/* ---------- treści do uzupełnienia ---------- */
+/* Rozmycie zamiast zmyślonego tekstu: układ i długość akapitów są prawdziwe,
+   więc widać, jak strona będzie wyglądać, ale nikt nie weźmie wypełniacza za treść. */
+.draft-bar{background:var(--dark-2);color:#C6BCAE;padding:18px 0;font-size:.9rem;border-top:1px solid rgba(198,166,103,.18)}
+.draft-bar p{max-width:88ch}
+.draft-bar b{color:#F1EADD;font-weight:600}
+
+.badge{
+  display:inline-flex;align-items:center;
+  font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
+  color:var(--gold);border:1px solid var(--gold-hair);border-radius:2px;
+  padding:5px 11px;margin-top:18px;
+}
+.tbd{
+  filter:blur(4px);
+  -webkit-user-select:none;user-select:none;
+  color:var(--ink-2);
+}
+.section--tint .tbd{color:var(--ink-2)}
+
+/* ---------- o mnie ---------- */
+.about{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+@media (max-width:760px){.about{grid-template-columns:1fr;gap:28px}}
+.about__who img{width:100%;max-width:200px;border-radius:2px;object-fit:cover}
+.about__who figcaption{margin-top:18px}
+.about__who b{display:block;font-family:var(--display);font-size:1.25rem;font-weight:500}
+.about__who span{display:block;font-size:.9rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.about__bio .badge{margin-top:0;margin-bottom:20px}
+.about__bio p+p{margin-top:16px}
+.about__bio p{font-size:1rem;max-width:62ch}
+
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:clamp(40px,5vw,64px)}
+.stats li{background:var(--paper-2);padding:24px 26px}
+.stats b{display:block;font-family:var(--display);font-size:2rem;font-weight:500;letter-spacing:-.02em;line-height:1;margin-bottom:10px}
+.stats span{font-size:.86rem;color:var(--muted);line-height:1.4;display:block}
+@media (max-width:560px){.stats{grid-template-columns:1fr}}
+
+/* ---------- pytania ---------- */
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 clamp(32px,5vw,72px);border-top:1px solid var(--line)}
+@media (max-width:760px){.faq{grid-template-columns:1fr;border-top:0}}
+.faq>div{padding:24px 0;border-bottom:1px solid var(--line-soft)}
+@media (max-width:760px){.faq>div:first-child{border-top:1px solid var(--line)}}
+.faq dt{font-family:var(--display);font-size:1.18rem;font-weight:500;letter-spacing:-.012em;line-height:1.3;margin-bottom:10px}
+.faq dd{margin:0;font-size:.97rem}
 
 /* ---------- stopka ---------- */
 footer{background:var(--dark);color:#B7ADA0;padding:clamp(48px,6vw,72px) 0 32px;font-size:.92rem}
