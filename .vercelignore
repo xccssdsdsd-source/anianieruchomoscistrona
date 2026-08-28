@@ -1,4 +1,4 @@
-# do wdrożenia trafia wyłącznie katalog landing/ (patrz vercel.json)
+# publicznie wystawiamy tylko strone z korzenia repo
 /ania-nieruchomosci-strona/
 /anianieruchomoscistrona.zip
 /website-excellence-SKILL.md
